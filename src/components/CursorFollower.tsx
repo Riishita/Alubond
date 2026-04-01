@@ -16,10 +16,10 @@ const getColor = (x: number, y: number) => {
   const midY = window.innerHeight / 2;
 
   // 🎨 Change colors here
-  if (x > midX && y < midY) return "rgba(96, 154, 229, 0.55)"; // top-right
-  if (x > midX && y > midY) return "rgba(40, 98, 164, 0.32)"; // bottom-right
-  if (x < midX && y < midY) return "rgba(42, 61, 154, 0.2)"; // top-left
-  return "rgba(0, 29, 66, 0.42)"; // bottom-left
+  if (x > midX && y < midY) return "rgba(96, 154, 229, 0.17)"; // top-right
+  if (x > midX && y > midY) return "rgba(26, 61, 100, 0.17)"; // bottom-right
+  if (x < midX && y < midY) return "rgba(19, 107, 194, 0.13)"; // top-left
+  return "rgba(32, 96, 180, 0.2)"; // bottom-left
 };
 
 type CursorGridTrailProps = {
