@@ -1,0 +1,100 @@
+import { useEffect, useState } from "react";
+
+const GRID_SIZE = 80;
+const FADE_TIME = 1000;
+
+type TrailItem = {
+  x: number;
+  y: number;
+  id: number;
+  createdAt: number;
+  color: string;
+};
+
+const getColor = (x: number, y: number) => {
+  const midX = window.innerWidth / 2;
+  const midY = window.innerHeight / 2;
+
+  // 🎨 Change colors here
+  if (x > midX && y < midY) return "rgba(96, 154, 229, 0.55)"; // top-right
+  if (x > midX && y > midY) return "rgba(40, 98, 164, 0.32)"; // bottom-right
+  if (x < midX && y < midY) return "rgba(42, 61, 154, 0.2)"; // top-left
+  return "rgba(0, 29, 66, 0.42)"; // bottom-left
+};
+
+type CursorGridTrailProps = {
+  /** Skip drawing the trail when the cursor is in this top strip (e.g. fixed navbar height). */
+  excludeTopPx?: number;
+};
+
+const CursorGridTrail = ({ excludeTopPx = 0 }: CursorGridTrailProps) => {
+  const [trail, setTrail] = useState<TrailItem[]>([]);
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      if (excludeTopPx > 0 && e.clientY < excludeTopPx) {
+        return;
+      }
+
+      const x = Math.floor(e.clientX / GRID_SIZE) * GRID_SIZE;
+      const y = Math.floor(e.clientY / GRID_SIZE) * GRID_SIZE;
+
+      const newItem: TrailItem = {
+        x,
+        y,
+        id: Date.now(),
+        createdAt: Date.now(),
+        color: getColor(e.clientX, e.clientY),
+      };
+
+      setTrail((prev) => {
+        if (prev[0]?.x === x && prev[0]?.y === y) return prev;
+        return [newItem, ...prev];
+      });
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, [excludeTopPx]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = Date.now();
+      setTrail((prev) =>
+        prev.filter((item) => now - item.createdAt < FADE_TIME)
+      );
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <>
+      {trail.map((item) => {
+        const age = Date.now() - item.createdAt;
+        const opacity = 1 - age / FADE_TIME;
+
+        return (
+          <div
+            key={item.id}
+            style={{
+              position: "fixed",
+              left: item.x,
+              top: item.y,
+              width: GRID_SIZE,
+              height: GRID_SIZE,
+              background: item.color,
+              border: `1px solid ${item.color.replace("0.2", "0.5")}`,
+              pointerEvents: "none",
+              zIndex: 5,
+              opacity: opacity < 0 ? 0 : opacity,
+              transition: "opacity 0.1s linear",
+            }}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+export default CursorGridTrail;
