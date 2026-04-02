@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="99b84460-0e2c-3293-91c9-26bc40448b0e")}catch(e){}}();
+define(["exports","./e_file_viewer_static_scl_page_folder","react","./c_pap-events_enums_current_plan-utils","./c_common_exception_tag_registry","./e_edison","./c_init_data_edison","./c_src_sink_index"],(function(e,t,o,n,s,a,r,i){"use strict";const _=e=>{const{slug:t,params:o}=e;return`/route_to/${t}?${new URLSearchParams(o).toString()}`},c=e=>{const o=new URL("/redirect_to_dash",window.location.origin);o.searchParams.set("state",(e=>btoa(JSON.stringify({redirectToPathEncoded:encodeURIComponent(_(e))})))(e)),t.open_tab(o.toString())};e.getDashRouteUrl=e=>`${t.DASH_HOST_ORIGIN}${_(e)}`,e.openCatapultToDashTab=c,e.openDashAddAppsModal=e=>{c({slug:"home",params:{showAddAppsModal:"true",...e?{dashBridgeEntryPoint:e}:void 0}})}}));
+//# sourceMappingURL=c_dash_bridge_hooks_useRouteToDash.js-vfleHDgWa.map
+
+//# debugId=99b84460-0e2c-3293-91c9-26bc40448b0e

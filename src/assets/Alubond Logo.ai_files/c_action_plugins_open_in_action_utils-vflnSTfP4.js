@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="9f8e271f-734d-3838-9201-5f379ec49543")}catch(e){}}();
+define(["require","exports","./e_file_viewer_static_scl_page_folder","./c_unity_check_file_cache","./c_unity_features"],(function(e,i,n,t,c){"use strict";i.makeOpenInDesktopHandler=(i,_)=>{if("fq_path"in i&&n.isLiveFile(i)&&c.UnityFeatures.isUnitySupported()&&"ns_path"in i&&(null===t.UnityCheckFileCache||void 0===t.UnityCheckFileCache?void 0:t.UnityCheckFileCache.is_cached_and_locally_available(i.ns_id,i.ns_path)))return async()=>{const{openInDesktopAction:n}=await new Promise((function(i,n){e(["./c_file_viewer_action_plugins_file_actions"],i,n)}));n(i,_)}}}));
+//# sourceMappingURL=c_action_plugins_open_in_action_utils.js-vflwhu01O.map
+
+//# debugId=9f8e271f-734d-3838-9201-5f379ec49543

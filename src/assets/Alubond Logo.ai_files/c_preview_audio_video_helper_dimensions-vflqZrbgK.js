@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="b06b4f27-e3c9-37a9-aad8-7a336f319084")}catch(e){}}();
+define(["exports","react","./e_file_viewer_static_scl_page_folder","./c_react_query_helpers_queries_file_content_metadata"],(function(e,t,i,o){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}var u=n(t);function r(e){var t;const{data:i}=o.useFileContentMetadataQuery(e),n=null===(t=null==i?void 0:i.apiData)||void 0===t?void 0:t.metadata;return u.default.useMemo((()=>n&&"video"===n[".tag"]&&n.resolution_height&&n.resolution_width?{width:n.resolution_width,height:n.resolution_height}:null),[n])}e.useIsAudioOnlyVideo=function(){const e=r(i.useRootFile());return i.useRootPreviewType()===i.PreviewType.Video&&!e},e.useVideoDimensions=r}));
+//# sourceMappingURL=c_preview_audio_video_helper_dimensions.js-vflkqnZS_.map
+
+//# debugId=b06b4f27-e3c9-37a9-aad8-7a336f319084

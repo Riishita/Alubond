@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="c87a91b0-c0c5-365b-a02a-b884d448f890")}catch(e){}}();
+define(["exports","./e_file_viewer_static_scl_page_folder"],(function(e,t){"use strict";e._inherits=function(e,r){if("function"!=typeof r&&null!==r)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(r&&r.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),Object.defineProperty(e,"prototype",{writable:!1}),r&&t._setPrototypeOf(e,r)},e._isNativeReflectConstruct=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(e){return!1}}}));
+//# sourceMappingURL=c_babel_runtime_helpers_isNativeReflectConstruct.js-vfl4kfHIN.map
+
+//# debugId=c87a91b0-c0c5-365b-a02a-b884d448f890

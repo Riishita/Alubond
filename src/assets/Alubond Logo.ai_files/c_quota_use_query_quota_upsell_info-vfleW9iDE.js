@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="6cb1c74a-6f5b-397a-9c59-c5c413f3dcf7")}catch(e){}}();
+define(["exports","react","./e_file_viewer_static_scl_page_folder"],(function(e,t,o){"use strict";const a=18e4,r=6e5;e.useQuotaUpsellInfo=(e,s)=>{const n=!!e&&!s,{data:l,isLoading:i,error:c}=o.getQuotaUpsellInfoPackage.useQuery({apiArg:{}},{refetchOnReconnect:!1,refetchOnWindowFocus:!0,refetchInterval:e&&e.is_team?6e5:18e5,staleTime:e&&e.is_team?a:r,cacheTime:e&&e.is_team?a:r,retry:1,enabled:n});return t.useEffect((()=>{n&&c&&o.ProEventsLogger.log("use_quota_upsell_info_error")}),[c,n]),{quotaUpsellInfo:null==l?void 0:l.apiData,isLoadingQuotaUpsellInfo:i,quotaUpsellInfoError:c}}}));
+//# sourceMappingURL=c_quota_use_query_quota_upsell_info.js-vflf2ZmXF.map
+
+//# debugId=6cb1c74a-6f5b-397a-9c59-c5c413f3dcf7

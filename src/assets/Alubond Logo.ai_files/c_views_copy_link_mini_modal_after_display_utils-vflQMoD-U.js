@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="28b0465f-764d-3a8b-8352-d9f21911d65e")}catch(e){}}();
+define(["require","exports","./e_file_viewer_static_scl_page_folder","react"],(function(i,a,e,n){"use strict";a.getShowCopyLinkMiniModalCallback=async()=>(await e.loadAfterDisplay((async()=>{const{CopyLinkMiniModal:a}=await new Promise((function(a,e){i(["./c_views_copy_link_mini_modal_copy_link_mini_modal.after-display"],a,e)}));return{default:a.show}}))).default,a.useShowCopyLinkMiniModalCallback=()=>e.useAfterDisplayPassthroughCallback({importer:async()=>new Promise((function(a,e){i(["./c_views_copy_link_mini_modal_copy_link_mini_modal.after-display"],a,e)})).then((({CopyLinkMiniModal:i})=>({default:{fn:i.show}})))})}));
+//# sourceMappingURL=c_views_copy_link_mini_modal_after_display_utils.js-vflYjhCId.map
+
+//# debugId=28b0465f-764d-3a8b-8352-d9f21911d65e

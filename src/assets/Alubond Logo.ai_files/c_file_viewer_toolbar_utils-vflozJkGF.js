@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="e0925acd-3018-33cb-b7d3-65e1e5b6bad7")}catch(e){}}();
+define(["exports","react","./e_file_viewer_static_scl_page_folder","./c_file_viewer_hooks_useTouchInteraction"],(function(e,t,r,n){"use strict";function i(e){if(e&&e.__esModule)return e;var t=Object.create(null);return e&&Object.keys(e).forEach((function(r){if("default"!==r){var n=Object.getOwnPropertyDescriptor(e,r);Object.defineProperty(t,r,n.get?n:{enumerable:!0,get:function(){return e[r]}})}})),t.default=e,Object.freeze(t)}var a=i(t);const o=({label:e,onClick:t,icon:n,disabled:i,variant:o})=>a.createElement(r.IconButton,{variant:null!=o?o:"transparent","aria-label":e,onClick:t,disabled:i},a.createElement(r.UIIcon,{src:n,width:"20px",height:"20px"}));o.displayName="ToolbarIcon";e.ToolbarIcon=o,e.isToolbarIconsOnly=e=>e===n.FileViewerBreakpoint.MD||e===n.FileViewerBreakpoint.SM}));
+//# sourceMappingURL=c_file_viewer_toolbar_utils.js-vflHVIAou.map
+
+//# debugId=e0925acd-3018-33cb-b7d3-65e1e5b6bad7

@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="a213d1e5-5568-328a-891f-9701ea97bf57")}catch(e){}}();
+define(["exports","./e_file_viewer_static_scl_page_folder","react"],(function(t,e,n){"use strict";function o(){let t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:e.ReactReduxContext;const o=t===e.ReactReduxContext?e.useReduxContext:()=>n.useContext(t);return function(){const{store:t}=o();return t}}const c=o();function u(){let t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:e.ReactReduxContext;const n=t===e.ReactReduxContext?c:o(t);return function(){return n().dispatch}}const s=u();t.useDispatch=s}));
+//# sourceMappingURL=c_react-redux_hooks_useDispatch.js-vfln49Bsc.map
+
+//# debugId=a213d1e5-5568-328a-891f-9701ea97bf57

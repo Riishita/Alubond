@@ -2,115 +2,118 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-  const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState<"loading" | "shrink" | "expand">("loading");
 
-  // progress
+  // timing control (cleaner than progress)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setPhase("shrink"), 300);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 40);
-    return () => clearInterval(interval);
-  }, []);
+    const t1 = setTimeout(() => setPhase("shrink"), 1200);
+    const t2 = setTimeout(() => setPhase("expand"), 2000);
+    const t3 = setTimeout(() => onComplete(), 2800);
 
-  useEffect(() => {
-    if (phase === "shrink") {
-      setTimeout(() => setPhase("expand"), 600);
-    }
-    if (phase === "expand") {
-      setTimeout(() => onComplete(), 900);
-    }
-  }, [phase, onComplete]);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [onComplete]);
 
   const squares = [
-    { size: 280, color: "hsl(233 55% 14%)" }, // 👈 OUTER COLOR
-    { size: 210, color: "hsl(233 50% 22%)" },
-    { size: 150, color: "hsl(230 40% 28%)" },
-    { size: 100, color: "hsl(32 90% 48%)" },
-    { size: 60, color: "hsl(32 85% 58%)" },
+    { size: 260, color: "hsl(233 55% 14%)" },
+    { size: 200, color: "hsl(233 50% 22%)" },
+    { size: 140, color: "hsl(230 40% 28%)" },
+    { size: 90, color: "hsl(32 90% 48%)" },
+    { size: 50, color: "hsl(32 85% 58%)" },
   ];
 
   return (
     <AnimatePresence>
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-    
-    {/* 🔥 THIS is the animated square */}
-    <motion.div
-      className="flex items-center justify-center"
-      
-      animate={{
-        scale:
-          phase === "shrink"
-            ? 0.2
-            : phase === "expand"
-            ? 20
-            : 1,
+      <motion.div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-hero-gradient"
 
-        opacity: phase === "expand" ? 0 : 1,
+        // 🔥 FULL SCREEN → SQUARE → FULL SCREEN
+        animate={{
+          scale: phase === "shrink" ? 0.25 : 1,
+          borderRadius: phase === "shrink" ? "28px" : "0px",
+        }}
 
-        borderRadius: phase === "shrink" ? "20px" : "0px",
-      }}
+        transition={{
+          duration: 0.9,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        {/* INNER SQUARE */}
+        <motion.div
+          className="flex items-center justify-center relative"
 
-      transition={{
-        scale: {
-          type: "spring",
-          stiffness: 90,
-          damping: 20,
-        },
-        opacity: {
-          duration: 0.6,
-        },
-      }}
+          animate={{
+            scale:
+              phase === "shrink"
+                ? 0.85 // 👈 micro shrink
+                : phase === "expand"
+                ? 14 // 👈 explode
+                : 1,
 
-      style={{
-        width: 280,
-        height: 280,
-        background: "hsl(233 55% 14%)", // 👈 outer square color
-      }}
-    >
+            opacity: phase === "expand" ? 0 : 1,
+          }}
 
-      {/* 👇 CONTENT INSIDE SQUARE */}
-      {phase === "loading" && (
-        <div className="relative flex items-center justify-center">
-          {squares.map((sq, i) => (
-            <motion.div
-              key={i}
-              className="absolute"
-              style={{
-                width: sq.size,
-                height: sq.size,
-                backgroundColor: sq.color,
-              }}
-              initial={{ scale: 0, rotate: 45, opacity: 0 }}
-              animate={{
-                scale: [0, 1.1, 1],
-                rotate: [45, 0],
-                opacity: 1,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: i * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            />
-          ))}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+          }}
 
-          <span className="relative z-10 text-white font-bold tracking-widest">
+          style={{
+            width: 260,
+            height: 260,
+            background: "hsl(233 55% 14%)",
+          }}
+        >
+          {/* LAYERS */}
+          {phase === "loading" && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              {squares.map((sq, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute"
+                  style={{
+                    width: sq.size,
+                    height: sq.size,
+                    backgroundColor: sq.color,
+                  }}
+                  initial={{ scale: 0, rotate: 45, opacity: 0 }}
+                  animate={{
+                    scale: [0, 1.1, 1],
+                    rotate: [45, 0],
+                    opacity: 1,
+                  }}
+                  transition={{
+                    duration: 0.7,
+                    delay: i * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* LOGO */}
+          <motion.span
+            className="relative z-10 text-white font-bold tracking-widest"
+
+            animate={{
+              opacity: phase === "shrink" ? 0 : 1,
+              scale: phase === "shrink" ? 0.8 : 1,
+            }}
+
+            transition={{
+              duration: 0.4,
+              ease: "easeOut",
+            }}
+          >
             ALUBOND
-          </span>
-        </div>
-      )}
-    </motion.div>
-
-  </div>
-</AnimatePresence>
+          </motion.span>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

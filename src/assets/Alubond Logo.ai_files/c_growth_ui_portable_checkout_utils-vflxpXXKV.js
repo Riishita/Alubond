@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="a9c2e6b0-8ed0-3b1f-8f81-ec285234e834")}catch(e){}}();
+define(["require","exports","react","./c_core_i18n","./e_file_viewer_static_scl_page_folder","./e_data_modules_stormcrow"],(function(e,t,o,r,c,n){"use strict";function a(e){return e&&e.__esModule?e:{default:e}}var l=a(o);const u="portable-checkout-modal";t.PORTABLE_CHECKOUT_MODAL_ID=u,t.openPortableCheckoutModal=t=>{new Promise((function(t,o){e(["./c_checkout_components_portable_checkout_frame"],t,o)})).then((function(e){return e.portable_checkout_frame_esnext})).then((async({PortableCheckoutModal:e})=>{c.mountModal(l.default.createElement(r.Provider,{value:r.intl},l.default.createElement(n.QueryClientProvider,{client:c.queryClient},l.default.createElement(e,{...t}))),void 0,u)}))}}));
+//# sourceMappingURL=c_growth_ui_portable_checkout_utils.js-vflyKqGRj.map
+
+//# debugId=a9c2e6b0-8ed0-3b1f-8f81-ec285234e834

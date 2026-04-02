@@ -1,0 +1,5 @@
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="8f8b7213-2f59-3874-8989-fd930ec0ec1b")}catch(e){}}();
+define(["exports","./c_core_i18n","./e_file_viewer_static_scl_page_folder","./e_core_exception","./c_src_sink_index","./c_pap-events_enums_current_plan-utils","./c_common_exception_tag_registry","./c_lodash-es_lodash","./c_api_v2_routes_restorations_provider","metaserver/static/js/langpack","react","./c_init_data_edison","./e_edison","./c_api_v2_routes_shortcuts_provider","./e_data_modules_stormcrow","./c_api_v2_routes_team_insights_provider","./c_domains","./c_core_notify","react-dom","react/jsx-runtime","./c_security_csrf_hmac","./c_react-use_useEffectOnce"],(function(e,_,s,r,c,t,a,o,i,n,d,p,u,l,m,f,v,g,x,y,h,k){"use strict";e.saveCopySnackBarInProgress=e=>s.Snackbar.sync(_.intl.formatMessage({id:"Adz4fH",defaultMessage:"Saving to your personal Dropbox..."}),!1,e)}));
+//# sourceMappingURL=c_portable_save_as_copy_snackbars.js-vflu9Sdnk.map
+
+//# debugId=8f8b7213-2f59-3874-8989-fd930ec0ec1b
