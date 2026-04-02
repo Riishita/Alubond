@@ -83,7 +83,8 @@ const Navbar = () => {
                     key={link.label}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-2xl font-Medium tracking-tight text-foreground transition-colors hover:text-primary md:text-5xl lg:text-6xl"                    style={{ fontFamily: "var(--font-display)" }}
+                    className="text-2xl font-medium tracking-tight text-foreground transition-colors hover:text-primary md:text-3xl lg:text-5xl"
+                    style={{ fontFamily: "var(--font-display)" }}
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}

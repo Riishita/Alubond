@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type RefObject } from "react";
 
 const GRID_SIZE = 80;
 const FADE_TIME = 1000;
@@ -25,13 +25,28 @@ const getColor = (x: number, y: number) => {
 type CursorGridTrailProps = {
   /** Skip drawing the trail when the cursor is in this top strip (e.g. fixed navbar height). */
   excludeTopPx?: number;
+  /** Restrict trail to this section's visible bounds. */
+  sectionRef?: RefObject<HTMLElement>;
 };
 
-const CursorGridTrail = ({ excludeTopPx = 0 }: CursorGridTrailProps) => {
+const CursorGridTrail = ({ excludeTopPx = 0, sectionRef }: CursorGridTrailProps) => {
   const [trail, setTrail] = useState<TrailItem[]>([]);
 
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
+      if (sectionRef?.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const isWithinSection =
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom;
+
+        if (!isWithinSection) {
+          return;
+        }
+      }
+
       if (excludeTopPx > 0 && e.clientY < excludeTopPx) {
         return;
       }
@@ -55,7 +70,7 @@ const CursorGridTrail = ({ excludeTopPx = 0 }: CursorGridTrailProps) => {
 
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
-  }, [excludeTopPx]);
+  }, [excludeTopPx, sectionRef]);
 
   useEffect(() => {
     const interval = setInterval(() => {
