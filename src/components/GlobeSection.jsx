@@ -1,6 +1,6 @@
 import Globe from "react-globe.gl";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LOCATIONS = [
   { id: "uae", name: "UAE", group: "Manufacturing", lat: 25.2048, lng: 55.2708, details: "Dubai manufacturing and regional specification support." },
@@ -15,201 +15,158 @@ const LOCATIONS = [
 
 export default function GlobeSection() {
   const globeRef = useRef();
-
-  // ❌ no default selection
   const [activeId, setActiveId] = useState(null);
 
-  const active = useMemo(
-    () => LOCATIONS.find((l) => l.id === activeId),
-    [activeId]
-  );
+  const active = LOCATIONS.find(l => l.id === activeId);
 
-  const grouped = useMemo(() => ({
-    Manufacturing: LOCATIONS.filter((l) => l.group === "Manufacturing"),
-    Offices: LOCATIONS.filter((l) => l.group === "Offices"),
-  }), []);
+  const grouped = {
+    Manufacturing: LOCATIONS.filter(l => l.group === "Manufacturing"),
+    Offices: LOCATIONS.filter(l => l.group === "Offices"),
+  };
 
   useEffect(() => {
-  if (!globeRef.current) return;
+    if (!globeRef.current) return;
 
-  const controls = globeRef.current.controls();
+    const controls = globeRef.current.controls();
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.6;
 
-  // ✅ Always rotating
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 0.6; // smooth premium speed
-
-  // ✅ Lock zoom range (fix size feel)
-  controls.enableZoom = true;
-  controls.minDistance = 380; // closer limit
-  controls.maxDistance = 420; // farther limit
-
-  // ✅ Smooth zoom when location selected
-  if (active) {
-    globeRef.current.pointOfView(
-      { lat: active.lat, lng: active.lng, altitude: 1.6 },
-      1200
-    );
-  }
-
-}, [active]);
+    if (active) {
+      globeRef.current.pointOfView(
+        { lat: active.lat, lng: active.lng, altitude: 1.6 },
+        1000
+      );
+    }
+  }, [active]);
 
   return (
-    <section className="relative py-28 overflow-hidden">
+    <section className="relative py-20 overflow-hidden text-center">
 
-      {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-blue-100 to-white" />
+      {/* 🔵 PREMIUM BLUE BACKGROUND */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-100 via-blue-300 to-blue-600">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/noise.png')]" />
+      </div>
 
-      {/* Heading */}
-      <div className="text-center max-w-3xl mx-auto px-6 relative z-10">
-  <h2 className="text-4xl md:text-6xl font-semibold tracking-tight leading-tight text-slate-100">
-    Our Global Presence Powers Local Delivery
-    <br />
+      {/* 🔥 HEADING */}
+      <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 mb-10">
+        Our Global Presence Powers Local Delivery
+      </h2>
 
-  </h2>
+      {/* 🌍 GLOBE */}
+      <div className="flex justify-center relative">
+        <Globe
+          ref={globeRef}
+          width={500}
+          height={500}
+          globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+          backgroundColor="rgba(0,0,0,0)"
+          htmlElementsData={LOCATIONS}
+          htmlLat="lat"
+          htmlLng="lng"
+          htmlElement={(d) => {
+            const el = document.createElement("div");
+
+            el.innerHTML = `
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <img src="/alubond-logo.png" style="width:28px;" />
+                <span style="font-size:10px;color:white;margin-top:2px;">
+                  ${d.name}
+                </span>
+              </div>
+            `;
+
+            el.onclick = () => setActiveId(d.id);
+            return el;
+          }}
+        />
+      </div>
+
+      {/* 🔘 FILTER BUTTONS */}
+<div className="mt-10 flex flex-col gap-6 items-center">
+
+  {/* MANUFACTURING */}
+  <div className="flex flex-wrap gap-3 justify-center items-center">
+    <span className="text-xs text-orange-400 tracking-wider">
+      ● MANUFACTURING
+    </span>
+
+    {grouped.Manufacturing.map((l) => (
+      <button
+        key={l.id}
+        onClick={() => setActiveId(l.id)}
+        className={`px-5 py-2 rounded-full text-sm transition-all duration-300 ${
+          activeId === l.id
+            ? "bg-orange-500 text-white shadow-lg scale-105"
+            : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+        }`}
+      >
+        {l.name}
+      </button>
+    ))}
+  </div>
+
+  {/* OFFICES */}
+  <div className="flex flex-wrap gap-3 justify-center items-center">
+    <span className="text-xs text-white/70 tracking-wider">
+      ● OFFICES
+    </span>
+
+    {grouped.Offices.map((l) => (
+      <button
+        key={l.id}
+        onClick={() => setActiveId(l.id)}
+        className={`px-5 py-2 rounded-full text-sm transition-all duration-300 ${
+          activeId === l.id
+            ? "bg-white text-black shadow-lg scale-105"
+            : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+        }`}
+      >
+        {l.name}
+      </button>
+    ))}
+  </div>
+
 </div>
 
-      {/* Globe */}
-      <div className="mt-20 flex justify-center">
-        <div className="relative">
-
-          {/* Glow */}
-          <div className="absolute w-[500px] h-[500px] bg-blue-200/40 blur-3xl rounded-full -z-10" />
-
-          <Globe
-  ref={globeRef}
-  width={Math.min(window.innerWidth * 0.5, 700)}
-  height={Math.min(window.innerWidth * 0.5, 700)}
-            globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-            backgroundColor="rgba(0,0,0,0)"
-
-            htmlElementsData={LOCATIONS}
-            htmlLat="lat"
-            htmlLng="lng"
-
-            htmlElement={(d) => {
-              const el = document.createElement("div");
-              const isActive = d.id === activeId;
-
-              el.style.transform = "translate(-50%, -50%)";
-              el.style.cursor = "pointer";
-
-              el.innerHTML = `
-                <div style="display:flex;flex-direction:column;align-items:center;">
-                  
-                  <div style="
-                    width:${isActive ? 36 : 24}px;
-                    height:${isActive ? 36 : 24}px;
-                    border-radius:50%;
-                    background:white;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    box-shadow:${isActive ? "0 8px 20px rgba(245,158,11,0.4)" : "0 2px 8px rgba(0,0,0,0.1)"};
-                    border:${isActive ? "2px solid #f59e0b" : "1px solid #e5e7eb"};
-                  ">
-                    <img src="/alubond-logo.png" style="width:60%;" />
-                  </div>
-
-                  <span style="
-                    margin-top:4px;
-                    font-size:10px;
-                    font-weight:${isActive ? "600" : "500"};
-                    color:${isActive ? "#111827" : "#6b7280"};
-                  ">
-                    ${d.name}
-                  </span>
-                </div>
-              `;
-
-              el.onclick = () => setActiveId(d.id);
-
-              return el;
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="mt-14 flex flex-col items-center gap-6">
-
-        {/* Manufacturing */}
-        <div className="flex flex-wrap items-center gap-3 justify-center">
-          <span className="text-xs tracking-widest text-amber-500 font-medium">
-            ● MANUFACTURING
-          </span>
-
-          {grouped.Manufacturing.map((l) => (
-            <button
-              key={l.id}
-              onClick={() => setActiveId(l.id)}
-              className={`px-4 py-2 rounded-full text-sm transition ${
-                activeId === l.id
-                  ? "bg-amber-500 text-white shadow-md"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
-              }`}
-            >
-              {l.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Offices */}
-        <div className="flex flex-wrap items-center gap-3 justify-center">
-          <span className="text-xs tracking-widest text-slate-400 font-medium">
-            ● OFFICES
-          </span>
-
-          {grouped.Offices.map((l) => (
-            <button
-              key={l.id}
-              onClick={() => setActiveId(l.id)}
-              className={`px-4 py-2 rounded-full text-sm transition ${
-                activeId === l.id
-                  ? "bg-slate-900 text-white shadow-md"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
-              }`}
-            >
-              {l.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Info Card (ONLY WHEN CLICKED) */}
-      {active && (
-        <div className="mt-16 flex justify-center">
+      {/* 💎 FLOATING CARD (CENTERED LIKE IMAGE 2) */}
+      <AnimatePresence>
+        {active && (
           <motion.div
             key={active.id}
-            className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] px-10 py-8 max-w-md text-center border border-white"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            className="mt-10 flex justify-center"
           >
-            {/* Close */}
-            <button
-              onClick={() => setActiveId(null)}
-              className="absolute top-3 right-3 text-gray-400 hover:text-black"
-            >
-              ✕
-            </button>
+            <div className="bg-white rounded-2xl shadow-xl p-6 w-[320px] text-center relative">
 
-            <p className="text-xs tracking-widest text-amber-500 font-semibold">
-              {active.group.toUpperCase()}
-            </p>
+              <button
+                onClick={() => setActiveId(null)}
+                className="absolute top-3 right-3 text-black/70"
+              >
+                ✕
+              </button>
 
-            <h3 className="text-2xl font-semibold text-slate-900 mt-2">
-              {active.name}
-            </h3>
+              <p className="text-xs text-orange-400 tracking-widest">
+                {active.group.toUpperCase()}
+              </p>
 
-            <p className="text-slate-600 mt-4 leading-relaxed">
-              {active.details}
-            </p>
+              <h3 className="text-xl font-semibold mt-2">
+                {active.name}
+              </h3>
 
-            <button className="mt-6 px-6 py-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-md hover:scale-105 transition">
-              Contact Us
-            </button>
+              <p className="text-gray-600 text-sm mt-3">
+                {active.details}
+              </p>
+
+              <button className="mt-4 bg-orange-400 text-white px-5 py-2 rounded-full">
+                Contact Us
+              </button>
+            </div>
           </motion.div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
+
     </section>
   );
 }

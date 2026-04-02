@@ -26,32 +26,28 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img
-            src={alubondLogo}
-            alt="Alubond U.S.A"
-            className="h-10 w-auto brightness-0 invert md:h-12"
-          />
+  src="/Logo.png"
+  alt="Alubond U.S.A"
+  className="h-10 md:h-12 object-contain brightness-110 contrast-110"
+/>
         </div>
 
         {/* Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[7px]"
-          aria-label="Toggle menu"
         >
           <motion.span
-            className="block h-[2px] w-7 bg-foreground"
+            className="block h-[2px] w-7 bg-white/90"
             animate={isOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.3 }}
           />
           <motion.span
-            className="block h-[2px] w-7 bg-foreground"
+            className="block h-[2px] w-7 bg-white/90"
             animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.2 }}
           />
           <motion.span
-            className="block h-[2px] w-7 bg-foreground"
+            className="block h-[2px] w-7 bg-white/90"
             animate={isOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.3 }}
           />
         </button>
       </motion.nav>
@@ -60,18 +56,26 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Background overlay */}
+            {/* 🔵 Gradient Overlay */}
             <motion.div
-              className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
+              className="fixed inset-0 z-30"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(20,27,58,0.5), rgba(20,27,58,0.7))",
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
             />
 
-            {/* 50% Side Menu */}
+            {/* 🔥 Gradient Side Menu */}
             <motion.div
-              className="fixed right-0 top-0 h-full w-1/2 z-40 flex items-center justify-center bg-background"
+              className="fixed right-0 top-0 h-full w-1/2 z-40 flex items-center justify-center"
+              style={{
+                background:
+                  "linear-gradient(135deg, #141B3A 0%, #1E2A5A 100%)",
+              }}
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -83,7 +87,7 @@ const Navbar = () => {
                     key={link.label}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-2xl font-medium tracking-tight text-foreground transition-colors hover:text-primary md:text-3xl lg:text-5xl"
+                    className="text-2xl md:text-3xl lg:text-5xl font-medium text-white/90 transition-colors hover:text-[#EA6A2A]"
                     style={{ fontFamily: "var(--font-display)" }}
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -97,11 +101,10 @@ const Navbar = () => {
 
               {/* Bottom info */}
               <motion.div
-                className="absolute bottom-10 left-0 right-0 flex justify-center gap-12 text-[11px] tracking-[0.2em] text-muted-foreground uppercase"
+                className="absolute bottom-10 left-0 right-0 flex justify-center gap-12 text-[11px] uppercase tracking-[0.2em] text-white/40"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
-                style={{ fontFamily: "var(--font-body)" }}
               >
                 <span>info@alubondusa.com</span>
                 <span>+1 (305) 000-0000</span>

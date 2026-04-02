@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   const [phase, setPhase] = useState<"loading" | "shrink" | "expand">("loading");
 
-  // timing control (cleaner than progress)
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("shrink"), 1200);
     const t2 = setTimeout(() => setPhase("expand"), 2000);
@@ -18,62 +17,51 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   }, [onComplete]);
 
   const squares = [
-    { size: 260, color: "hsl(233 55% 14%)" },
-    { size: 200, color: "hsl(233 50% 22%)" },
-    { size: 140, color: "hsl(230 40% 28%)" },
-    { size: 90, color: "hsl(32 90% 48%)" },
-    { size: 50, color: "hsl(32 85% 58%)" },
+    { size: 260, color: "#141B3A" },
+    { size: 200, color: "#1E2A5A" },
+    { size: 140, color: "#2C3E78" },
+    { size: 90, color: "#EA6A2A" },
+    { size: 50, color: "#F28C52" },
   ];
 
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-hero-gradient"
-
-        // 🔥 FULL SCREEN → SQUARE → FULL SCREEN
-        animate={{
-          scale: phase === "shrink" ? 0.25 : 1,
-          borderRadius: phase === "shrink" ? "28px" : "0px",
-        }}
-
-        transition={{
-          duration: 0.9,
-          ease: [0.22, 1, 0.36, 1],
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 50%, #141B3A 100%)",
         }}
       >
-        {/* INNER SQUARE */}
+        {/* 🔥 MAIN CONTAINER (LOGO + SHAPE TOGETHER) */}
         <motion.div
-          className="flex items-center justify-center relative"
-
+          className="relative flex items-center justify-center overflow-hidden"
           animate={{
             scale:
               phase === "shrink"
-                ? 0.85 // 👈 micro shrink
+                ? 0.4
                 : phase === "expand"
-                ? 14 // 👈 explode
+                ? 20 // 🚀 zoom everything together
                 : 1,
-
-            opacity: phase === "expand" ? 0 : 1,
+            borderRadius: phase === "shrink" ? "50%" : "20px",
           }}
-
           transition={{
-            duration: 0.8,
+            duration: phase === "expand" ? 1.2 : 0.9,
             ease: [0.22, 1, 0.36, 1],
           }}
-
           style={{
             width: 260,
             height: 260,
-            background: "hsl(233 55% 14%)",
+            background: "#141B3A",
           }}
         >
-          {/* LAYERS */}
+          {/* 🔳 LAYERS */}
           {phase === "loading" && (
             <div className="absolute inset-0 flex items-center justify-center">
               {squares.map((sq, i) => (
                 <motion.div
                   key={i}
-                  className="absolute"
+                  className="absolute rounded-lg"
                   style={{
                     width: sq.size,
                     height: sq.size,
@@ -81,7 +69,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
                   }}
                   initial={{ scale: 0, rotate: 45, opacity: 0 }}
                   animate={{
-                    scale: [0, 1.1, 1],
+                    scale: [0, 1.05, 1],
                     rotate: [45, 0],
                     opacity: 1,
                   }}
@@ -95,22 +83,21 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
             </div>
           )}
 
-          {/* LOGO */}
-          <motion.span
-            className="relative z-10 text-white font-bold tracking-widest"
-
-            animate={{
-              opacity: phase === "shrink" ? 0 : 1,
-              scale: phase === "shrink" ? 0.8 : 1,
-            }}
-
-            transition={{
-              duration: 0.4,
-              ease: "easeOut",
-            }}
-          >
-            ALUBOND
-          </motion.span>
+          {/* 🔥 LOGO (NOW ZOOMS WITH CONTAINER) */}
+          <motion.img
+  src="/alubond-logo.png"
+  alt="logo"
+  className="relative z-10 w-24"
+  animate={{
+    scale: phase === "shrink" ? 0.9 : 1,
+    opacity: phase === "expand" ? 0 : 1,
+  }}
+  transition={{
+    duration: 0.2,
+    delay: phase === "expand" ? 0.2 : 0,
+    ease: "easeOut",
+  }}
+/>
         </motion.div>
       </motion.div>
     </AnimatePresence>
