@@ -55,36 +55,40 @@ export default function GlobeSection() {
       </h2>
 
       {/* GLOBE */}
-      <div className="flex justify-center relative">
-        <Globe
-          ref={globeRef}
-          width={500}
-          height={500}
-          globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-          backgroundColor="rgba(0,0,0,0)"
-          htmlElementsData={LOCATIONS}
-          htmlLat="lat"
-          htmlLng="lng"
-          htmlElement={(d) => {
-            const el = document.createElement("div");
+      
+      <div className="flex justify-center relative z-0 pointer-events-none">
+  <Globe
+    ref={globeRef}
+    width={500}
+    height={500}
+    globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+    backgroundColor="rgba(0,0,0,0)"
+    htmlElementsData={LOCATIONS}
+    htmlLat="lat"
+    htmlLng="lng"
+    htmlElement={(d) => {
+      const el = document.createElement("div");
 
-            el.innerHTML = `
-              <div style="display:flex;flex-direction:column;align-items:center;">
-                <img src="/alubond-logo.png" style="width:28px;" />
-                <span style="font-size:10px;color:white;margin-top:2px;">
-                  ${d.name}
-                </span>
-              </div>
-            `;
+      el.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="/alubond-logo.png" style="width:28px;" />
+          <span style="font-size:10px;color:white;margin-top:2px;">
+            ${d.name}
+          </span>
+        </div>
+      `;
 
-            el.onclick = () => setActiveId(d.id);
-            return el;
-          }}
-        />
-      </div>
+      // IMPORTANT: allow clicks ONLY on markers
+      el.style.pointerEvents = "auto";
+
+      el.onclick = () => setActiveId(d.id);
+      return el;
+    }}
+  />
+</div>
 
       {/* 🔘 BUTTONS + CARD WRAPPER */}
-      <div className="mt-8 flex flex-col items-center gap-10 md:gap-14">
+      <div className="mt-8 flex flex-col items-center gap-10 md:gap-14 relative z-10 pointer-events-auto">
 
         {/* BUTTONS */}
         <div className="flex flex-col gap-6 items-center">
