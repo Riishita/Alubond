@@ -28,6 +28,10 @@ export default function GlobeSection() {
     if (!globeRef.current) return;
 
     const controls = globeRef.current.controls();
+    controls.enableZoom = false;     // ❌ disable zoom
+      controls.enablePan = false;      // optional (no dragging)
+      controls.minDistance = 300;      // fixed distance
+      controls.maxDistance = 300;  
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.6;
 
