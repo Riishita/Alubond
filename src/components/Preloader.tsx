@@ -1,13 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
-const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-  const [phase, setPhase] = useState<"loading" | "shrink" | "expand">("loading");
+const Preloader = ({ onComplete }) => {
+  const [phase, setPhase] = useState("loading");
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("shrink"), 2000);
     const t2 = setTimeout(() => setPhase("expand"), 2800);
-    const t3 = setTimeout(() => onComplete(), 3800);
+    const t3 = setTimeout(() => onComplete(), 4200); // ⏱ slightly delayed
 
     return () => {
       clearTimeout(t1);
@@ -27,19 +27,14 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
     <AnimatePresence>
       <motion.div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
-        
-        {/* 🔥 FAKE BACKGROUND (SAME COLOR THEME, NO CHANGE) */}
-        <motion.div
+
+        {/* 🔵 BACKGROUND (NO FADE NOW) */}
+        <div
           className="absolute inset-0"
           style={{
             background:
               "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 50%, #141B3A 100%)",
           }}
-          animate={{
-            scale: phase === "expand" ? 1.1 : 1,
-            opacity: phase === "expand" ? 0 : 1,
-          }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         />
 
         {/* 🔲 MAIN BOX */}
@@ -50,7 +45,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               phase === "shrink"
                 ? 0.4
                 : phase === "expand"
-                ? 18 // 🚀 smoother zoom
+                ? 18
                 : 1,
             borderRadius: phase === "shrink" ? "50%" : "20px",
           }}
@@ -61,7 +56,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
           style={{
             width: 260,
             height: 260,
-            background: "#141B3A", // ✅ SAME as yours
+            background: "#141B3A",
           }}
         >
           {/* 🔳 LAYERS */}
@@ -92,7 +87,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
             </div>
           )}
 
-          {/* 🔥 LOGO */}
+          {/* 🔥 LOGO (ONLY THIS FADES) */}
           <motion.img
             src="/alubond-logo.png"
             alt="logo"
@@ -100,10 +95,11 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
             animate={{
               scale: phase === "shrink" ? 0.9 : 1,
               opacity: phase === "expand" ? 0 : 1,
+              filter: phase === "expand" ? "blur(6px)" : "blur(0px)",
             }}
             transition={{
-              duration: 0.3,
-              ease: "easeOut",
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
             }}
           />
         </motion.div>
