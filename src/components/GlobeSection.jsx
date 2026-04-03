@@ -1,5 +1,5 @@
 import Globe from "react-globe.gl";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const LOCATIONS = [
@@ -28,10 +28,10 @@ export default function GlobeSection() {
     if (!globeRef.current) return;
 
     const controls = globeRef.current.controls();
-    controls.enableZoom = false;     // ❌ disable zoom
-      controls.enablePan = false;      // optional (no dragging)
-      controls.minDistance = 300;      // fixed distance
-      controls.maxDistance = 300;  
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.minDistance = 300;
+    controls.maxDistance = 300;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.6;
 
@@ -46,17 +46,15 @@ export default function GlobeSection() {
   return (
     <section className="relative py-20 overflow-hidden text-center">
 
-      {/* 🔵 PREMIUM BLUE BACKGROUND */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-100 via-blue-300 to-blue-600">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/noise.png')]" />
-      </div>
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0b1a3a] via-[#0f2a5c] to-[#020617]" />
 
-      {/* 🔥 HEADING */}
-      <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 mb-10">
+      {/* HEADING */}
+      <h2 className="text-4xl md:text-5xl font-semibold text-white mb-12">
         Our Global Presence Powers Local Delivery
       </h2>
 
-      {/* 🌍 GLOBE */}
+      {/* GLOBE */}
       <div className="flex justify-center relative">
         <Globe
           ref={globeRef}
@@ -85,92 +83,101 @@ export default function GlobeSection() {
         />
       </div>
 
-      {/* 🔘 FILTER BUTTONS */}
-<div className="mt-10 flex flex-col gap-6 items-center">
+      {/* 🔘 BUTTONS + CARD WRAPPER */}
+      <div className="mt-8 flex flex-col items-center gap-10 md:gap-14">
 
-  {/* MANUFACTURING */}
-  <div className="flex flex-wrap gap-3 justify-center items-center">
-    <span className="text-xs text-orange-400 tracking-wider">
-      ● MANUFACTURING
-    </span>
+        {/* BUTTONS */}
+        <div className="flex flex-col gap-6 items-center">
 
-    {grouped.Manufacturing.map((l) => (
-      <button
-        key={l.id}
-        onClick={() => setActiveId(l.id)}
-        className={`px-5 py-2 rounded-full text-sm transition-all duration-300 ${
-          activeId === l.id
-            ? "bg-orange-500 text-white shadow-lg scale-105"
-            : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
-        }`}
-      >
-        {l.name}
-      </button>
-    ))}
-  </div>
+          {/* MANUFACTURING */}
+          <div className="flex flex-wrap gap-3 justify-center items-center">
+            <span className="text-xs text-orange-400 tracking-wider">
+              ● MANUFACTURING
+            </span>
 
-  {/* OFFICES */}
-  <div className="flex flex-wrap gap-3 justify-center items-center">
-    <span className="text-xs text-white/70 tracking-wider">
-      ● OFFICES
-    </span>
-
-    {grouped.Offices.map((l) => (
-      <button
-        key={l.id}
-        onClick={() => setActiveId(l.id)}
-        className={`px-5 py-2 rounded-full text-sm transition-all duration-300 ${
-          activeId === l.id
-            ? "bg-white text-black shadow-lg scale-105"
-            : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
-        }`}
-      >
-        {l.name}
-      </button>
-    ))}
-  </div>
-
-</div>
-
-      {/* 💎 FLOATING CARD (CENTERED LIKE IMAGE 2) */}
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            key={active.id}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            className="mt-10 flex justify-center"
-          >
-            <div className="bg-white rounded-2xl shadow-xl p-6 w-[320px] text-center relative">
-
+            {grouped.Manufacturing.map((l) => (
               <button
-                onClick={() => setActiveId(null)}
-                className="absolute top-3 right-3 text-black/70"
+                key={l.id}
+                onClick={() => setActiveId(l.id)}
+                className={`px-5 py-2 rounded-full text-sm transition-all duration-300 ${
+                  activeId === l.id
+                    ? "bg-orange-500 text-white shadow-lg scale-105"
+                    : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+                }`}
               >
-                ✕
+                {l.name}
               </button>
+            ))}
+          </div>
 
-              <p className="text-xs text-orange-400 tracking-widest">
-                {active.group.toUpperCase()}
-              </p>
+          {/* OFFICES */}
+          <div className="flex flex-wrap gap-3 justify-center items-center">
+            <span className="text-xs text-white/70 tracking-wider">
+              ● OFFICES
+            </span>
 
-              <h3 className="text-xl font-semibold mt-2">
-                {active.name}
-              </h3>
-
-              <p className="text-gray-600 text-sm mt-3">
-                {active.details}
-              </p>
-
-              <button className="mt-4 bg-orange-400 text-white px-5 py-2 rounded-full">
-                Contact Us
+            {grouped.Offices.map((l) => (
+              <button
+                key={l.id}
+                onClick={() => setActiveId(l.id)}
+                className={`px-5 py-2 rounded-full text-sm transition-all duration-300 ${
+                  activeId === l.id
+                    ? "bg-orange-500 text-white shadow-lg scale-105"
+                    : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+                }`}
+              >
+                {l.name}
               </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </div>
+        </div>
 
+        {/* 💎 CARD */}
+        <AnimatePresence mode="wait">
+  {active && (
+    <motion.div
+      key={active.id}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.98 }}
+      transition={{ duration: 0.25 }}
+      className="w-30% flex justify-center mt-6 md:mt-10"
+    >
+      <div className="relative w-full max-w-[320px] rounded-2xl p-6 text-center backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+
+        {/* CLOSE */}
+        <button
+          onClick={() => setActiveId(null)}
+          className="absolute top-3 right-3 text-white/60 hover:text-white text-sm"
+        >
+          ✕
+        </button>
+
+        {/* TYPE */}
+        <p className="text-[10px] tracking-[0.3em] text-orange-400 uppercase">
+          {active.group}
+        </p>
+
+        {/* TITLE */}
+        <h3 className="text-xl font-semibold mt-2 text-white">
+          {active.name}
+        </h3>
+
+        {/* DESC */}
+        <p className="text-white/70 text-sm mt-3 leading-relaxed px-2">
+          {active.details}
+        </p>
+
+        {/* BUTTON */}
+        <button className="mt-5 px-5 py-2 rounded-full bg-gradient-to-r from-orange-400 to-orange-500 text-white text-sm font-medium shadow hover:scale-105 transition">
+          Contact Us
+        </button>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
+      </div>
     </section>
   );
 }

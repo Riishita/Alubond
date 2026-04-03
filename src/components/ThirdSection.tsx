@@ -2,99 +2,81 @@ import { motion } from "framer-motion";
 
 const ThirdSection = () => {
   return (
-    <section className="relative min-h-screen bg-[#0b1a3a] text-white py-32 px-6 md:px-16 overflow-hidden">
+    <section className="relative min-h-screen bg-[#eae7e2] text-[#1f2937] pt-40 pb-32 overflow-hidden">
 
-      {/* 🔵 BACKGROUND */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0b1a3a] via-[#0f2a5c] to-[#020617]" />
-
-      {/* 🪨 MARBLE PANEL */}
-      <motion.div
-        initial={{ opacity: 0, y: 80, scale: 0.95 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative mx-auto max-w-5xl rounded-3xl p-16 mb-24 shadow-[0_40px_120px_rgba(0,0,0,0.6)] border border-white/20"
-        style={{
-          backgroundImage: `
-            url("https://www.transparenttextures.com/patterns/marble.png"),
-            linear-gradient(145deg, #e5e7eb, #9ca3af)
-          `,
-          backgroundBlendMode: "overlay",
-        }}
-      >
-        {/* ✨ INNER SHADOW (engraved feel) */}
-        <div className="absolute inset-0 rounded-3xl shadow-inner pointer-events-none" />
-
-        {/* 🔥 ENGRAVED TEXT */}
-        <div className="text-center">
-
-          <p className="text-xs tracking-[0.3em] text-black/60 uppercase mb-6">
-            001 / Technology
-          </p>
-
-          <h2
-            className="text-5xl md:text-7xl font-bold tracking-tight"
-            style={{
-              color: "#1f2937",
-              textShadow: `
-                1px 1px 0px #ffffff,
-                -1px -1px 0px #9ca3af
-              `,
-            }}
-          >
-            ALUBOND
-          </h2>
-
-          <h2
-            className="text-5xl md:text-7xl font-bold tracking-tight"
-            style={{
-              color: "#f59e0b",
-              textShadow: `
-                1px 1px 0px #fff7ed,
-                -1px -1px 0px #92400e
-              `,
-            }}
-          >
-            PHILOSOPHY
-          </h2>
-
-          {/* 💬 QUOTE */}
-          <p className="mt-8 italic text-black/70 text-lg">
-            “Architecture should speak of its time and place, but yearn for timelessness.”
-          </p>
-
-          <p className="mt-3 text-xs text-orange-500 tracking-widest">
-            — FRANK GEHRY
-          </p>
+      {/* ✨ VERY LIGHT GRID */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+        <div className="grid grid-cols-6 h-full">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="border-r border-black" />
+          ))}
         </div>
-      </motion.div>
+      </div>
 
-      {/* 📖 STORY CONTENT */}
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-4xl mx-auto text-center"
-      >
-        {/* Highlight */}
-        <div className="flex items-start justify-center gap-4 mb-8">
-          <div className="w-[2px] h-12 bg-orange-400 mt-1" />
-          <p className="text-white/80 italic text-lg">
+      {/* 📦 CONTENT */}
+      <div className="relative z-10 px-6 md:px-16 max-w-7xl mx-auto">
+
+        {/* 🔶 LABEL */}
+        <p className="text-xs tracking-[0.3em] text-black/40 uppercase mb-16">
+          001 / Technology
+        </p>
+
+        {/* 🧱 TOP GRID */}
+        <div className="grid md:grid-cols-2 gap-20 items-start">
+
+          {/* LEFT */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            <h2 className="text-6xl md:text-8xl font-serif leading-[0.95] tracking-tight">
+              <span className="block text-[#2b2b2b]">
+                ALUBOND
+              </span>
+              <span className="block text-orange-500">
+                PHILOSOPHY
+              </span>
+            </h2>
+          </motion.div>
+
+          {/* RIGHT */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-lg md:text-xl text-black/70 leading-relaxed"
+          >
+            Architecture should speak of its time and place, but yearn for timelessness.
+            <div className="mt-4 text-sm text-orange-500 tracking-widest">
+              — FRANK GEHRY
+            </div>
+          </motion.div>
+        </div>
+
+        {/* 🔸 DIVIDER */}
+        <div className="flex items-center gap-4 my-20">
+          <div className="flex-1 h-[1px] bg-black/10" />
+          <div className="w-2 h-2 bg-orange-500 rotate-45" />
+          <div className="flex-1 h-[1px] bg-black/10" />
+        </div>
+
+        {/* 📖 STORY */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="max-w-3xl"
+        >
+          <p className="text-lg italic text-black/70 mb-6">
             A façade is not just the outer skin of a building — it is the expression of its character, ambition, and identity.
           </p>
-        </div>
 
-        {/* Paragraph */}
-        <p className="text-white/60 leading-relaxed text-base md:text-lg">
-          At Alubond, we believe every façade must do justice to the architect's vision while delivering the precision,
-          consistency, and reliability demanded on site. Our philosophy is rooted in quality without compromise, care in every detail,
-          and a deep understanding of what each project requires — from architects and consultants to façade contractors and developers.
-          Because great façades are not simply manufactured. They are understood, engineered, and brought to life with intent.
-        </p>
-      </motion.div>
+          <p className="text-black/60 leading-relaxed">
+            At Alubond, we believe every façade must do justice to the architect's vision while delivering precision,
+            consistency, and reliability. Our philosophy is rooted in quality without compromise, care in every detail,
+            and a deep understanding of what each project requires.
+          </p>
+        </motion.div>
 
-      {/* 🌫️ BOTTOM FADE */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent" />
-
+      </div>
     </section>
   );
 };
