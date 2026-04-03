@@ -30,6 +30,7 @@ export default function GlobeSection() {
     const controls = globeRef.current.controls();
     controls.enableZoom = false;
     controls.enablePan = false;
+    controls.enableRotate = true; 
     controls.minDistance = 300;
     controls.maxDistance = 300;
     controls.autoRotate = true;
@@ -56,7 +57,7 @@ export default function GlobeSection() {
 
       {/* GLOBE */}
       
-      <div className="flex justify-center relative z-0 pointer-events-none">
+      <div className="flex justify-center relative z-0 ">
   <Globe
     ref={globeRef}
     width={500}
