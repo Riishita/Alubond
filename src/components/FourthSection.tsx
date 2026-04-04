@@ -71,50 +71,56 @@ const steps = [
   },
 ];
 
-/* ================= HERO SECTION ================= */
+
+/* ================= COMPONENT ================= */
 export default function HeroSection() {
   const [index, setIndex] = useState(0);
+  const [showNext, setShowNext] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  /* 🔥 SCROLL CONTROL (IN-VIEW + THROTTLE) */
-useEffect(() => {
-  let isScrolling = false;
+  /* ================= SCROLL ================= */
+  useEffect(() => {
+    let isScrolling = false;
 
-  const isInView = () => {
-    if (!sectionRef.current) return false;
+    const isInView = () => {
+      if (!sectionRef.current) return false;
+      const rect = sectionRef.current.getBoundingClientRect();
 
-    const rect = sectionRef.current.getBoundingClientRect();
+      return (
+        rect.top <= window.innerHeight * 0.2 &&
+        rect.bottom >= window.innerHeight * 0.8
+      );
+    };
 
-    // ✅ start only when MOST of section is visible
-    return (
-      rect.top <= window.innerHeight * 0.2 &&
-      rect.bottom >= window.innerHeight * 0.8
-    );
-  };
+    const handleScroll = (e: WheelEvent) => {
+      if (!isInView()) return;
+      if (isScrolling) return;
 
-  const handleScroll = (e: WheelEvent) => {
-    if (!isInView()) return;
-    if (isScrolling) return;
+      isScrolling = true;
 
-    isScrolling = true;
+      setIndex((prev) => {
+        if (e.deltaY > 0) {
+          if (prev === steps.length - 1) {
+            setShowNext(true);
+            return prev;
+          }
+          return Math.min(prev + 1, steps.length - 1);
+        } else {
+          if (showNext) {
+            setShowNext(false);
+            return prev;
+          }
+          return Math.max(prev - 1, 0);
+        }
+      });
 
-    setIndex((prev) => {
-      if (e.deltaY > 0) {
-        return Math.min(prev + 1, steps.length - 1);
-      } else {
-        return Math.max(prev - 1, 0);
-      }
-    });
+      setTimeout(() => (isScrolling = false), 700);
+    };
 
-    setTimeout(() => {
-      isScrolling = false;
-    }, 700);
-  };
+    window.addEventListener("wheel", handleScroll);
+    return () => window.removeEventListener("wheel", handleScroll);
+  }, [showNext]);
 
-  window.addEventListener("wheel", handleScroll);
-
-  return () => window.removeEventListener("wheel", handleScroll);
-}, []);
   return (
     <section
       ref={sectionRef}
@@ -124,68 +130,115 @@ useEffect(() => {
           "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 45%, #141B3A 100%)",
       }}
     >
-      {/* 🔵 3D CENTER */}
+      {/* 🔵 3D */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [3, 3, 5], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1.2} />
-
           <group rotation={[0.3, 0.5, 0]}>
             <PanelModel />
           </group>
-
           <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
         </Canvas>
       </div>
 
-      {/* 📝 LEFT TEXT */}
+      {/* LEFT TEXT */}
       <div className="absolute top-24 left-16 max-w-md z-10">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-orange-500 text-sm tracking-widest mb-4 mt-10">
-              {steps[index].id} / {steps[index].right}
-            </p>
+          {!showNext && (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -80 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-orange-500 text-sm mb-4">
+                {steps[index].id} / {steps[index].right}
+              </p>
 
-            <h2 className="text-4xl font-medium leading-tight mb-4 text-white">
-              {steps[index].title}
-            </h2>
+              <h2 className="text-4xl mb-4">
+                {steps[index].title}
+              </h2>
 
-            <p className="text-gray-300 text-sm leading-relaxed">
-              {steps[index].desc}
-            </p>
-            <p className="text-gray-500 text-sm mt-4 leading-relaxed">
-              {steps[index].details}
-            </p>
-          </motion.div>
+              <p className="text-gray-300 text-sm">
+                {steps[index].desc}
+              </p>
+
+              <p className="text-gray-500 text-xs mt-4">
+                {steps[index].details}
+              </p>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
-      {/* 📄 RIGHT TEXT */}
-      <div className="absolute bottom-24 right-16 max-w-md text-right z-10 space-y-4">
-        {steps.slice(0, index + 1).map((item, i) => (
+      {/* RIGHT LIST */}
+      {!showNext && (
+        <div className="absolute bottom-24 right-16 text-right space-y-4 z-10">
+          {steps.slice(0, index + 1).map((item, i) => (
+            <div key={item.id}>
+              <p className="text-sm">
+                {item.id}. {item.right}
+              </p>
+
+              {i !== index && (
+                <div className="h-[1px] bg-white/20 my-2 w-40 ml-auto"></div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 🔥 NEXT SECTION */}
+      <AnimatePresence>
+        {showNext && (
           <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
           >
-            <h2 className="text-lg font-light">
-              {item.id}. {item.right}
+            {/* STATS */}
+            <div className="flex gap-16 mb-10">
+              <div>
+                <h2 className="text-orange-400 text-5xl font-bold">100+</h2>
+                <p className="text-white/50 text-xs">COUNTRIES</p>
+              </div>
+              <div>
+                <h2 className="text-orange-400 text-5xl font-bold">50,000+</h2>
+                <p className="text-white/50 text-xs">PROJECTS</p>
+              </div>
+              <div>
+                <h2 className="text-orange-400 text-5xl font-bold">35+</h2>
+                <p className="text-white/50 text-xs">LEADERSHIP</p>
+              </div>
+            </div>
+
+            {/* HEADING */}
+            <h2 className="text-5xl font-semibold mb-4">
+              Engineered Without <br /> Compromise
             </h2>
 
-            {/* 🔥 Divider Line */}
-            {i !== index && (
-              <div className="w-full h-[1px] bg-white/20 my-2"></div>
-            )}
+            <p className="text-white/60 mb-10">
+              Every panel. Every layer. Trusted worldwide.
+            </p>
+
+            {/* CARDS */}
+            <div className="flex gap-6">
+              <div className="bg-[#EDEAE4] text-black p-6 w-[260px]">
+                Smaller than a plant cell
+              </div>
+              <div className="bg-[#EDEAE4] text-black p-6 w-[260px]">
+                Effortlessly integrative
+              </div>
+              <div className="bg-[#EDEAE4] text-black p-6 w-[260px]">
+                Zero manufacturing emissions
+              </div>
+            </div>
           </motion.div>
-        ))}
-      </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
