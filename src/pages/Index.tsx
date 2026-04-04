@@ -4,6 +4,7 @@ import Preloader from "@/components/Preloader";
 import LandingHero from "@/components/LandingHero";
 const GlobeSection = lazy(() => import("@/components/GlobeSection"));
 import ThirdSection from "@/components/ThirdSection";
+import FourthSection from "@/components/FourthSection";
 
 const FALLBACK_LOCATIONS = {
   Manufacturing: ["UAE", "India", "Europe"],
@@ -146,6 +147,7 @@ const Index = () => {
               <ThirdSection /> 
             </Suspense>
           </GlobeSectionBoundary>
+          <FourthSection />
         </>
       )}
     </>

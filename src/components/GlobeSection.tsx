@@ -87,7 +87,7 @@ export default function GlobeSection() {
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute inset-0 bg-[#020617]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_55%_45%,rgba(59,130,246,0.25),transparent_60%)]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020617] via-transparent to-[#020617]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020617] via-transparent to-[#141B3A]" />
           <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/noise.png')]" />
         </div>
 
@@ -130,7 +130,7 @@ export default function GlobeSection() {
 
             {/* MANUFACTURING */}
             <div className="mb-6">
-              <p className="text-xs text-orange-400 mb-2">● MANUFACTURING</p>
+              <p className="text-xs text-white/60 mb-2">● MANUFACTURING</p>
               <div className="flex flex-wrap gap-3">
                 {grouped.Manufacturing.map((l) => (
                   <motion.button
@@ -171,31 +171,54 @@ export default function GlobeSection() {
             </div>
 
             {/* CARD */}
-            <AnimatePresence>
-              {active && (
-                <motion.div
-                  key={active.id}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.2 }} // slightly faster
-                  className="p-5 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 relative"
-                >
-                  <button
-                    onClick={() => setActiveId(null)}
-                    className="absolute top-2 right-2 text-white/60 hover:text-white text-sm"
-                  >
-                    ✕
-                  </button>
+            <AnimatePresence mode="wait">
+  {active && (
+    <motion.div
+      key="card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.25 }}
+      className="p-5 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 relative min-h-[140px]"
+    >
+      {/* CLOSE */}
+      <button
+        onClick={() => setActiveId(null)}
+        className="absolute top-2 right-2 text-white/60 hover:text-white text-sm"
+      >
+        ✕
+      </button>
 
-                  <h3 className="text-lg font-semibold">{active.name}</h3>
-                  <p className="text-sm text-white/70 mt-2">
-                    {active.details}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      {/* CONTENT */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={active.id}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+        >
+          <h3 className="text-lg font-semibold">{active.name}</h3>
 
+          <p className="text-sm text-white/70 mt-2">
+            {active.details}
+          </p>
+
+          {/* 🔥 CONTACT BUTTON */}
+          <div className="mt-4">
+            <button
+              className="px-4 py-2 text-sm rounded-full border border-orange-500 
+              text-orange-400 hover:bg-orange-500 hover:text-white 
+              transition-all duration-300"
+            >
+              Contact
+            </button>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
+  )}
+</AnimatePresence>
           </div>
         </motion.div>
 
