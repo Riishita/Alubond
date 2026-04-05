@@ -8,6 +8,8 @@ import FourthSection from "@/components/FourthSection";
 import FifthSection from "@/components/FifthSection";
 import SixthSection from "@/components/SixthSection";
 import Applications from "@/components/Applications";
+import Gallary from "@/components/Gallary";
+import Footer from "@/components/Footer";
 
 const FALLBACK_LOCATIONS = {
   Manufacturing: ["UAE", "India", "Europe"],
@@ -154,6 +156,8 @@ const Index = () => {
               <FifthSection />
               <SixthSection />
               <Applications />
+              <Gallary />
+              <Footer />
 
             </Suspense>
           </GlobeSectionBoundary>

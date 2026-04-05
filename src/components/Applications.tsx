@@ -51,7 +51,7 @@ export default function Section() {
     <section
       style={{
         background:
-          "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 45%, #273054 100%)",
+          "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 45%, #141B3A 100%)",
         padding: "100px 40px",
       }}
     >

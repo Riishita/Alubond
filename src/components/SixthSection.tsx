@@ -1,9 +1,37 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  AnimatePresence,
+} from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-const filters = [
+/* ================= DATA CONFIG ================= */
+
+const heroData = {
+  image: "/images/Hero-palatte.jpeg",
+
+  label: "003 / Color & Finishes",
+  title: ["A Palette", "Without Limits"],
+
+  // 🔥 CONTROL HERE
+  overlay: {
+    opacityFrom: 0.5, // bottom (0–1)
+    opacityVia: 0.4,  // middle
+    opacityTo: 0.0,   // top
+  },
+
+  text: {
+    color: "#ffffff",
+    opacity: 1,
+  },
+};
+
+const categories = [
   "Wood",
   "Metallic",
   "Stone & Marbles",
@@ -12,132 +40,260 @@ const filters = [
   "Texture",
   "Brush",
   "Anodised",
+  "Najdi",
   "Prismatic",
   "Sparkle",
 ];
 
-const swatches = [
-  "/wood/1.jpg",
-  "/wood/2.jpg",
-  "/wood/3.jpg",
-  "/wood/4.jpg",
-  "/wood/5.jpg",
-  "/wood/6.jpg",
-  "/wood/7.jpg",
-  "/wood/8.jpg",
-  "/wood/9.jpg",
-  "/wood/10.jpg",
-  "/wood/11.jpg",
-  "/wood/12.jpg",
+const words = [
+  "Innovation", "Durability", "Sustainability", "Performance",
+  "Precision", "Excellence", "Design", "Quality",
 ];
 
-export default function PaletteSection() {
-  const [active, setActive] = useState("Wood");
+const materials = [
+  { name: "Dark Slate", image: "/materials/swatch-marble.jpg", category: "Stone & Marbles" },
+  { name: "Brushed Silver", image: "/images/metal.jpg", category: "Metallic" },
+  { name: "Travertine Beige", image: "/images/marble.jpg", category: "Stone & Marbles" },
+  { name: "Copper Patina", image: "/images/patina.jpg", category: "Patina" },
+  { name: "Raw Concrete", image: "/images/concrete.jpg", category: "Concrete" },
+  { name: "Natural Oak", image: "/materials/wood1.jpeg", category: "Wood" },
+];
+
+/* ================= HERO ================= */
+
+const HeroSection = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section className="w-full bg-[#f8f8f8] text-black">
-
-      {/* ================= HERO ================= */}
-      <div className="relative h-[40vh] w-full overflow-hidden">
-
-        {/* Background Image */}
+    <section ref={ref} className="relative h-[100vh]">
+      
+      {/* Background */}
+      <motion.div className="absolute inset-0" style={{ y: imageY }}>
         <img
-          src="/images/Building"
-          className="absolute inset-0 w-full h-12x0% object-cover"
+          src={heroData.image}
+          className="w-full h-[110%] object-cover"
         />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+        {/* 🔥 DYNAMIC OVERLAY */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to top,
+              rgba(0,0,0,${heroData.overlay.opacityFrom}),
+              rgba(0,0,0,${heroData.overlay.opacityVia}),
+              rgba(0,0,0,${heroData.overlay.opacityTo})
+            )`,
+          }}
+        />
+      </motion.div>
 
-        {/* Content */}
-        <div className="relative z-10 h-full flex items-center px-10 md:px-20">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-xl"
-          >
-            <p className="text-sm text-white/60 mb-3 tracking-widest">
-              003 / Color & Finishes
-            </p>
-
-            <h1 className="text-white text-5xl md:text-7xl font-semibold leading-tight">
-              A Palette <br /> Without Limits
-            </h1>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* ================= FILTER BAR ================= */}
-      <div className="sticky top-0 z-20 backdrop-blur-xl bg-[#0b1a3a]/90 px-6 md:px-16 py-4 flex gap-3 overflow-x-auto">
-
-        {filters.map((item) => (
-          <button
-            key={item}
-            onClick={() => setActive(item)}
-            className={`px-5 py-2 rounded-full text-sm whitespace-nowrap transition-all duration-300
-              ${
-                active === item
-                  ? "bg-white text-black shadow-md"
-                  : "bg-white/10 text-white hover:bg-white/20"
-              }`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-
-      {/* ================= CONTENT ================= */}
-      <div className="px-6 md:px-20 py-16">
-
-        {/* Description */}
+      {/* Text */}
+      <motion.div
+        className="relative z-10 flex flex-col justify-end h-full px-8 md:px-16 pb-20"
+        style={{ y: textY }}
+      >
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="text-gray-500 max-w-xl mb-10"
-        >
-          Wood-grain ACP finishes — natural warmth and depth for façades and
-          interiors.
-        </motion.p>
+  className="text-sm mb-4 tracking-widest"
+  style={{
+    color: heroData.text.color,
+    opacity: 0.9,
+    textShadow: "0 2px 10px rgba(0,0,0,0.6)",
+  }}
+>
+  {heroData.label}
+</motion.p>
 
-        {/* Swatches */}
-        <div className="flex gap-5 overflow-x-auto pb-6">
+        <motion.h1
+  className="text-5xl md:text-7xl lg:text-[6.5rem] font-semibold max-w-4xl"
+  style={{
+    color: heroData.text.color,
+    textShadow: "0 4px 20px rgba(0,0,0,0.8)", // 🔥 makes text pop
+  }}
+>
+          {heroData.title[0]}
+          <br />
+          {heroData.title[1]}
+        </motion.h1>
+      </motion.div>
+    </section>
+  );
+};
 
-          {swatches.map((img, i) => (
+/* ================= MARQUEE ================= */
+
+
+const MarqueeStrip = () => {
+  return (
+    <div className="py-6 bg-[#0b1a3a] text-white overflow-hidden">
+      <motion.div
+        className="flex gap-12 whitespace-nowrap"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: 20, // 🔥 speed control (lower = faster)
+        }}
+      >
+        {[...words, ...words].map((word, i) => (
+          <span
+            key={i}
+            className="text-sm font-medium tracking-[0.15em] uppercase opacity-60"
+          >
+            {word} <span className="mx-4 opacity-30">●</span>
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+/* ================= MATERIALS ================= */
+
+const MaterialsSection = () => {
+  const [active, setActive] = useState("Texture");
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const filtered =
+    active === "Texture"
+      ? materials
+      : materials.filter((m) => m.category === active);
+
+  return (
+    <section ref={ref} className="py-24 px-8 md:px-16 bg-white">
+
+      {/* ================= FILTERS ================= */}
+      <motion.div
+        className="flex flex-wrap gap-3 mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+      >
+        {categories.map((cat, i) => (
+  <motion.button
+    key={cat}
+    onClick={() => setActive(cat)}
+    className={`px-6 py-2 rounded-full text-sm font-medium border transition-all duration-300
+      ${
+        active === cat
+          ? "border-blue-500 text-orange-500 bg-white shadow-sm"
+          : "border-gray-300 text-gray-700 bg-white hover:border-gray-500"
+      }`}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.97 }}
+    initial={{ opacity: 0, y: 20 }}
+    animate={isInView ? { opacity: 1, y: 0 } : {}}
+    transition={{ delay: i * 0.05 }}
+  >
+    {cat}
+  </motion.button>
+))}
+      </motion.div>
+
+      {/* ================= DESCRIPTION ================= */}
+      <motion.p
+        className="text-gray-500 text-base md:text-lg mb-12 max-w-xl"
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ delay: 0.4 }}
+      >
+        Texture series — tactile surface interest for feature walls and cladding.
+      </motion.p>
+
+      {/* ================= SWATCHES ================= */}
+      <div className="flex flex-wrap gap-5 mb-20">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((mat, i) => (
             <motion.div
-              key={i}
-              whileHover={{ scale: 1.08, y: -4 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="min-w-[90px] h-[90px] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+              key={mat.name}
+              layout
+              className="relative group"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ delay: i * 0.06, type: "spring", stiffness: 200 }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
             >
-              <img
-                src={img}
-                className="w-full h-full object-cover"
-              />
+              {/* Card */}
+              <motion.div
+                className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden shadow-md"
+                whileHover={{ scale: 1.15, rotate: 2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <img
+                  src={mat.image}
+                  alt={mat.name}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+
+              {/* Tooltip */}
+              <AnimatePresence>
+                {hovered === i && (
+                  <motion.div
+                    className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-3 py-1.5 rounded-full whitespace-nowrap z-20"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                  >
+                    {mat.name}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-gray-200 my-10" />
-
-        {/* Bottom Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-
-          <p className="text-gray-500">
-            Over 200 colours, wood grains, stone finishes, and metallic effects
-            available.
-          </p>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-black text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-          >
-            Explore Color Studio →
-          </motion.button>
-        </div>
+        </AnimatePresence>
       </div>
+
+      {/* ================= BOTTOM ================= */}
+      <motion.div
+        className="flex flex-col md:flex-row items-start md:items-center justify-between pt-8 border-t border-gray-200"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.6 }}
+      >
+        <p className="text-gray-500 text-sm md:text-base max-w-md mb-6 md:mb-0">
+          Over 200 colours, wood grains, stone finishes, and metallic effects available.
+        </p>
+
+        <motion.button
+          className="bg-black text-white px-6 py-3 rounded-full flex items-center gap-2"
+          whileHover={{ scale: 1.05, x: 4 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          Explore Color Studio <ArrowRight className="w-4 h-4" />
+        </motion.button>
+      </motion.div>
     </section>
+  );
+};
+
+/* ================= FINAL ================= */
+
+export default function SixthSection() {
+  return (
+    <div className="relative">
+
+      {/* HERO (sticks) */}
+      <HeroSection />
+
+      {/* SCROLL CONTENT (slides over) */}
+      <div className="relative z-20 bg-white">
+        <MarqueeStrip />
+        <MaterialsSection />
+      </div>
+
+    </div>
   );
 }

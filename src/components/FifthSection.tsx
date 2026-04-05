@@ -84,51 +84,27 @@ export default function FireHorizontalExperience() {
         <div className="pointer-events-none absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-[#F7F7F5] to-transparent z-20" />
         <div className="pointer-events-none absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-[#F7F7F5] to-transparent z-20" /> */}
 
-        {/* ================= ROW 1 ================= */}
-        <div
-          className="overflow-hidden mb-10 cursor-grab active:cursor-grabbing"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: -300, right: 0 }}
-            animate={{ x: isHovered ? 0 : [0, 320] }}
-            transition={{
-              repeat: Infinity,
-              duration: 10,
-              ease: "linear",
-            }}
-            className="flex gap-8 w-max"
-          >
-            {[...topRow, ...topRow].map((item, i) => (
-              <Card key={i} item={item} />
-            ))}
-          </motion.div>
-        </div>
-
-        {/* ================= ROW 2 ================= */}
-        <div
-          className="overflow-hidden cursor-grab active:cursor-grabbing"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: -300, right: 0 }}
-            animate={{ x: isHovered ? 0 : [0, -320] }}
-            transition={{
-              repeat: Infinity,
-              duration: 10,
-              ease: "linear",
-            }}
-            className="flex gap-8 w-max"
-          >
-            {[...bottomRow, ...bottomRow].map((item, i) => (
-              <Card key={i} item={item} />
-            ))}
-          </motion.div>
-        </div>
+       <div
+  className="overflow-hidden cursor-grab active:cursor-grabbing"
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+>
+  <motion.div
+    drag="x"
+    dragConstraints={{ left: -500, right: 0 }}
+    animate={{ x: isHovered ? 0 : [0, -500] }}
+    transition={{
+      repeat: Infinity,
+      duration: 15,
+      ease: "linear",
+    }}
+    className="flex gap-8 w-max"
+  >
+    {[...certs, ...certs].map((item, i) => (
+      <Card key={i} item={item} />
+    ))}
+  </motion.div>
+</div>
 
       </div>
     </section>
