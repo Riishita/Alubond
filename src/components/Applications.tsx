@@ -1,88 +1,117 @@
-"use client";
-
-import ChromaGrid from "./ChromaGrid";
+import ChromaGrid from "@/components/ChromaGrid";
 
 const items = [
   {
-    image: "/facade.jpg",
-    title: "Building Facades",
-    subtitle: "Curtain walls & cladding systems",
-    handle: "01",
-    borderColor: "#E1654A",
+    image: "/images/BUILDINGFACADES.png",
+    title: "BUILDING FACADES",
+    subtitle:
+      "Curtain walls, rainscreen cladding, and architectural envelope systems.",
+    index: "01",
   },
   {
-    image: "/auto.jpg",
-    title: "Automobile Industry",
-    subtitle: "Lightweight vehicle panels",
-    handle: "02",
-    borderColor: "#3B82F6",
+    image: "/images/trailer.jpeg",
+    title: "AUTOMOBILE INDUSTRY",
+    subtitle: "Lightweight panels for vehicle bodies and trailers.",
+    index: "02",
   },
   {
-    image: "/corporate.jpg",
-    title: "Corporate Identity",
-    subtitle: "Signage & branding systems",
-    handle: "03",
-    borderColor: "#10B981",
+    image: "/images/coporate identity.png",
+    title: "CORPORATE IDENTITY",
+    subtitle: "Signage and branded installations.",
+    index: "03",
   },
   {
-    image: "/machine.jpg",
-    title: "Machine Covers",
-    subtitle: "Industrial enclosures",
-    handle: "04",
-    borderColor: "#6366F1",
+    image: "/images/machine covers.jpg",
+    title: "MACHINE COVERS",
+    subtitle: "Industrial enclosures and housings.",
+    index: "04",
   },
   {
-    image: "/elevator.jpg",
-    title: "Elevators & Interiors",
-    subtitle: "Interior panels",
-    handle: "05",
-    borderColor: "#F59E0B",
+    image: "/images/elevators .avif",
+    title: "ELEVATORS & INTERIORS",
+    subtitle: "Interior panels and partitions.",
+    index: "05",
   },
   {
-    image: "/marine.jpg",
-    title: "Marine & Offshore",
-    subtitle: "Corrosion resistant panels",
-    handle: "06",
-    borderColor: "#06B6D4",
+    image: "/images/marine .jpg",
+    title: "MARINE & OFFSHORE",
+    subtitle: "Corrosion-resistant panels.",
+    index: "06",
   },
   {
-    image: "/train.jpg",
-    title: "Trains & Coaches",
-    subtitle: "Rail interiors",
-    handle: "07",
-    borderColor: "#8B5CF6",
+    image: "/images/bullet train.png",
+    title: "TRAINS & COACHES",
+    subtitle: "Fire-rated lightweight panels.",
+    index: "07",
   },
 ];
 
-export default function ApplicationsChroma() {
+export default function Section() {
   return (
-    <section className="relative py-32 bg-[#f7f7f5] overflow-hidden">
-
-      {/* HEADER */}
-      <div className="max-w-7xl mx-auto px-10 mb-20 flex justify-between">
-
-        <div>
-          <p className="text-xs tracking-[0.3em] text-black/40 mb-6">
-            004 / APPLICATIONS
-          </p>
-
-          <h2 className="text-6xl font-bold leading-[0.95] text-[#1A1A1A]">
-            WHERE ALUBOND <br />
-            PERFORMS
-          </h2>
-        </div>
-
-        <p className="text-[#6B6B6B] max-w-sm text-lg">
-          Seven industries. One material. <br />
-          Endless architectural possibility.
+    <section
+      style={{
+        background:
+          "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 45%, #273054 100%)",
+        padding: "100px 40px",
+      }}
+    >
+      {/* TOP HEADER */}
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          marginBottom: "50px",
+        }}
+      >
+        {/* small label */}
+        <p
+          style={{
+            color: "#777",
+            fontSize: "14px",
+            marginBottom: "10px",
+          }}
+        >
+          004 / Applications
         </p>
+
+        {/* heading + right text */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+            gap: "20px",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "60px",
+              fontWeight: "900",
+              lineHeight: "1.1",
+              maxWidth: "600px",
+            }}
+          >
+            WHERE ALUBOND PERFORMS
+          </h1>
+
+          <p
+            style={{
+              maxWidth: "300px",
+              color: "#777",
+              fontSize: "16px",
+              lineHeight: "1.6",
+            }}
+          >
+            Seven industries. One material.
+            <br />
+            Endless architectural possibility.
+          </p>
+        </div>
       </div>
 
       {/* GRID */}
-      <div className="h-[700px] relative">
-        <ChromaGrid items={items} radius={260} damping={0.3} />
-      </div>
-
+      <ChromaGrid items={items} />
     </section>
   );
 }

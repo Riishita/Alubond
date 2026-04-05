@@ -1,139 +1,143 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 
-const tabs = [
-  "Wood", "Metallic", "Stone & Marbles", "Patina",
-  "Concrete", "Texture", "Brush", "Anodised",
-  "Najdi", "Prismatic", "Sparkle"
+const filters = [
+  "Wood",
+  "Metallic",
+  "Stone & Marbles",
+  "Patina",
+  "Concrete",
+  "Texture",
+  "Brush",
+  "Anodised",
+  "Prismatic",
+  "Sparkle",
 ];
 
-const woods = [
-  "/wood1.jpg", "/wood2.jpg", "/wood3.jpg", "/wood4.jpg",
-  "/wood5.jpg", "/wood6.jpg", "/wood7.jpg", "/wood8.jpg",
-  "/wood9.jpg", "/wood10.jpg", "/wood11.jpg", "/wood12.jpg"
+const swatches = [
+  "/wood/1.jpg",
+  "/wood/2.jpg",
+  "/wood/3.jpg",
+  "/wood/4.jpg",
+  "/wood/5.jpg",
+  "/wood/6.jpg",
+  "/wood/7.jpg",
+  "/wood/8.jpg",
+  "/wood/9.jpg",
+  "/wood/10.jpg",
+  "/wood/11.jpg",
+  "/wood/12.jpg",
 ];
 
 export default function PaletteSection() {
+  const [active, setActive] = useState("Wood");
+
   return (
-    <section className="bg-[#f7f7f5]">
+    <section className="w-full bg-[#f8f8f8] text-black">
 
       {/* ================= HERO ================= */}
-      <div className="relative h-[70vh] w-full overflow-hidden">
+      <div className="relative h-[40vh] w-full overflow-hidden">
 
         {/* Background Image */}
         <img
-          src="/building.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          src="/images/Building"
+          className="absolute inset-0 w-full h-12x0% object-cover"
         />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
         {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center px-16">
-          
-          <p className="text-white/70 text-sm tracking-[0.3em] mb-6">
-            003 / COLOR & FINISHES
-          </p>
+        <div className="relative z-10 h-full flex items-center px-10 md:px-20">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-xl"
+          >
+            <p className="text-sm text-white/60 mb-3 tracking-widest">
+              003 / Color & Finishes
+            </p>
 
-          <h1 className="text-white text-6xl md:text-8xl font-bold leading-[0.95] max-w-3xl">
-            A PALETTE <br /> WITHOUT LIMITS
-          </h1>
+            <h1 className="text-white text-5xl md:text-7xl font-semibold leading-tight">
+              A Palette <br /> Without Limits
+            </h1>
+          </motion.div>
         </div>
       </div>
 
-      {/* ================= TABS ================= */}
-      <div className="relative -mt-12 z-20 flex justify-center">
-        <div className="bg-[#0b1a3a] px-6 py-4 rounded-full flex gap-3 overflow-x-auto">
+      {/* ================= FILTER BAR ================= */}
+      <div className="sticky top-0 z-20 backdrop-blur-xl bg-[#0b1a3a]/90 px-6 md:px-16 py-4 flex gap-3 overflow-x-auto">
 
-          {tabs.map((tab, i) => (
-            <button
-              key={i}
-              className={`px-5 py-2 rounded-full text-sm whitespace-nowrap transition-all
-              ${i === 0
-                ? "bg-white text-black"
-                : "text-white/70 hover:text-white border border-white/10"}
-              `}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        {filters.map((item) => (
+          <button
+            key={item}
+            onClick={() => setActive(item)}
+            className={`px-5 py-2 rounded-full text-sm whitespace-nowrap transition-all duration-300
+              ${
+                active === item
+                  ? "bg-white text-black shadow-md"
+                  : "bg-white/10 text-white hover:bg-white/20"
+              }`}
+          >
+            {item}
+          </button>
+        ))}
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="max-w-6xl mx-auto px-10 mt-16">
+      <div className="px-6 md:px-20 py-16">
 
-        <p className="text-[#6B6B6B] text-lg mb-10">
-          <span className="font-medium text-black">
-            Wood-grain ACP finishes
-          </span>{" "}
-          — natural warmth and depth for façades and interiors.
-        </p>
-
-        {/* ================= SWATCH CARD ================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-lg border border-[#e5e5e5]"
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="text-gray-500 max-w-xl mb-10"
         >
+          Wood-grain ACP finishes — natural warmth and depth for façades and
+          interiors.
+        </motion.p>
 
-          <div className="flex gap-6 overflow-x-auto pb-2">
-            {woods.map((src, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.08 }}
-                className="min-w-[90px] h-[90px] rounded-xl overflow-hidden shadow-md cursor-pointer"
-              >
-                <img
-                  src={src}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            ))}
-          </div>
+        {/* Swatches */}
+        <div className="flex gap-5 overflow-x-auto pb-6">
 
-        </motion.div>
+          {swatches.map((img, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.08, y: -4 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="min-w-[90px] h-[90px] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+            >
+              <img
+                src={img}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          ))}
+        </div>
 
+        {/* Divider */}
+        <div className="border-t border-gray-200 my-10" />
+
+        {/* Bottom Row */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+
+          <p className="text-gray-500">
+            Over 200 colours, wood grains, stone finishes, and metallic effects
+            available.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-black text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+          >
+            Explore Color Studio →
+          </motion.button>
+        </div>
       </div>
-      {/* ================= CTA STRIP ================= */}
-<div className="max-w-6xl mx-auto px-10 mt-20">
-
-  {/* divider line */}
-  <div className="w-full h-[1px] bg-black/10 mb-10" />
-
-  <div className="flex items-center justify-between gap-6">
-
-    {/* LEFT TEXT */}
-    <p className="text-[#6B6B6B] text-lg max-w-xl leading-relaxed">
-      Over 200 colours, wood grains, stone finishes, and metallic
-      effects available.
-    </p>
-
-    {/* 🔥 PREMIUM BUTTON */}
-    <button className="group mt-10 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#E5E5E5] text-[#1A1A1A] overflow-hidden relative transition-all duration-300">
-            
-            <span className="relative z-10 group-hover:text-white transition">
-              View all certifications
-            </span>
-
-            <span className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-white">
-              →
-            </span>
-
-            {/* hover bg */}
-            <span className="absolute inset-0 bg-[#1A1A1A] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 rounded-full" />
-          </button>
-
-  </div>
-</div>
-
-      {/* spacing */}
-      <div className="h-24" />
     </section>
   );
 }
