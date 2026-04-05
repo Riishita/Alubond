@@ -5,7 +5,7 @@ const ThirdSection = () => {
     <section className="relative min-h-screen bg-[#eae7e2] text-[#1f2937] pt-40 pb-32 overflow-hidden">
 
       {/* ✨ VERY LIGHT GRID */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+      <div className="absolute inset-0 pointer-events-none opacity-[0.06]">
         <div className="grid grid-cols-6 h-full">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="border-r border-black" />

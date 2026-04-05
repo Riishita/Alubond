@@ -41,8 +41,8 @@ export default function GlobeSection() {
   const headingX = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
   const headingY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
 
-  const contentOpacity = useTransform(scrollYProgress, [0.35, 0.75], [0, 1]);
-  const contentY = useTransform(scrollYProgress, [0.35, 0.75], [30, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
+const contentY = useTransform(scrollYProgress, [0.1, 0.4], [30, 0]);
 
   useEffect(() => {
     if (!globeRef.current) return;

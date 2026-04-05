@@ -5,6 +5,9 @@ import LandingHero from "@/components/LandingHero";
 const GlobeSection = lazy(() => import("@/components/GlobeSection"));
 import ThirdSection from "@/components/ThirdSection";
 import FourthSection from "@/components/FourthSection";
+import FifthSection from "@/components/FifthSection";
+import SixthSection from "@/components/SixthSection";
+import Applications from "@/components/Applications";
 
 const FALLBACK_LOCATIONS = {
   Manufacturing: ["UAE", "India", "Europe"],
@@ -144,10 +147,17 @@ const Index = () => {
           <GlobeSectionBoundary>
             <Suspense fallback={<GlobeSectionFallback />}>
               <GlobeSection />
-              <ThirdSection /> 
+              {/* Fire & certifications: placed here so it appears right after the globe scroll, not below Philosophy */}
+              
+              <ThirdSection />
+              <FourthSection />
+              <FifthSection />
+              <SixthSection />
+              <Applications />
+
             </Suspense>
           </GlobeSectionBoundary>
-          <FourthSection />
+          
         </>
       )}
     </>
