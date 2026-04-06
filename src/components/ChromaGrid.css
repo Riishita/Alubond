@@ -90,3 +90,11 @@
   opacity: 1;
   transition: opacity 0.3s;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

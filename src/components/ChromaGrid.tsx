@@ -1,10 +1,8 @@
-// components/ChromaGrid.tsx
-
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import "./ChromaGrid.css";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Item {
   image: string;
@@ -13,73 +11,72 @@ interface Item {
   index: string;
 }
 
-export default function ChromaGrid({
-  items,
-  radius = 250,
-}: {
-  items: Item[];
-  radius?: number;
-}) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const fadeRef = useRef<HTMLDivElement>(null);
+export default function ChromaGrid({ items }: { items: Item[] }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
 
-    const setX = gsap.quickSetter(el, "--x", "px");
-    const setY = gsap.quickSetter(el, "--y", "px");
-
-    const move = (x: number, y: number) => {
-      gsap.to(el, {
-        "--x": `${x}px`,
-        "--y": `${y}px`,
-        duration: 0.4,
-        ease: "power3.out",
-      });
-    };
-
-    const handleMove = (e: PointerEvent) => {
-      const rect = el.getBoundingClientRect();
-      move(e.clientX - rect.left, e.clientY - rect.top);
-      gsap.to(fadeRef.current, { opacity: 0, duration: 0.3 });
-    };
-
-    const handleLeave = () => {
-      gsap.to(fadeRef.current, { opacity: 1, duration: 0.5 });
-    };
-
-    el.addEventListener("pointermove", handleMove);
-    el.addEventListener("pointerleave", handleLeave);
-
-    return () => {
-      el.removeEventListener("pointermove", handleMove);
-      el.removeEventListener("pointerleave", handleLeave);
-    };
-  }, []);
+    const amount = 320; // card width scroll
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <div
-      ref={rootRef}
-      className="chroma-grid"
-      style={{ "--r": `${radius}px` } as React.CSSProperties}
-    >
-      {items.map((item, i) => (
-        <div key={i} className="chroma-card">
-          <div className="chroma-img-wrapper">
-            <img src={item.image} />
-          </div>
+    <div className="relative max-w-[1300px] mx-auto">
 
-          <div className="chroma-info">
-            <span className="index">{item.index}</span>
-            <h3 className="title">{item.title}</h3>
-            <p className="desc">{item.subtitle}</p>
-          </div>
-        </div>
-      ))}
+      {/* LEFT BUTTON */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white/10 backdrop-blur-md p-3 rounded-full hover:bg-white/20 transition"
+      >
+        <ChevronLeft className="text-white" />
+      </button>
 
-      <div className="chroma-overlay" />
-      <div ref={fadeRef} className="chroma-fade" />
+      {/* RIGHT BUTTON */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white/10 backdrop-blur-md p-3 rounded-full hover:bg-white/20 transition"
+      >
+        <ChevronRight className="text-white" />
+      </button>
+
+      {/* SCROLL CONTAINER */}
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar py-4"
+      >
+        {items.map((item, i) => (
+          <motion.div
+            key={i}
+            className="min-w-[280px] max-w-[280px] bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 group"
+            whileHover={{ y: -8 }}
+          >
+            {/* IMAGE */}
+            <div className="h-[180px] overflow-hidden">
+              <motion.img
+                src={item.image}
+                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+
+            {/* TEXT */}
+            <div className="p-4">
+              <p className="text-xs text-white/50 mb-1">{item.index}</p>
+              <h3 className="text-sm font-semibold text-white mb-1">
+                {item.title}
+              </h3>
+              <p className="text-xs text-white/60 leading-relaxed">
+                {item.subtitle}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }
