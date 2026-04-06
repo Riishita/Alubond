@@ -64,13 +64,10 @@ export default function Section() {
         }}
       >
         {/* small label */}
-        <p
-          style={{
-            color: "#777",
-            fontSize: "14px",
-            marginBottom: "10px",
-          }}
-        >
+
+
+
+        <p className="text-xs tracking-[0.3em] text-white/50 uppercase mb-16">
           004 / Applications
         </p>
 
@@ -84,21 +81,17 @@ export default function Section() {
             gap: "20px",
           }}
         >
-          <h1
-            style={{
-              fontSize: "60px",
-              fontWeight: "900",
-              lineHeight: "1.1",
-              maxWidth: "600px",
-            }}
-          >
-            WHERE ALUBOND PERFORMS
-          </h1>
+          <h2 className="text-6xl md:text-8xl font-serif leading-[0.95] tracking-tight">
+              <span className="block text-[#dadada]">
+                WHERE ALUBOND <br />
+                PERFORMS
+              </span>
+            </h2>
 
           <p
             style={{
               maxWidth: "300px",
-              color: "#777",
+              color: "#afafaf",
               fontSize: "16px",
               lineHeight: "1.6",
             }}

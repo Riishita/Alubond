@@ -95,24 +95,27 @@ const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
         />
       </motion.div>
 
+      
+
       {/* Text */}
       <motion.div
         className="relative z-10 flex flex-col justify-end h-full px-8 md:px-16 pb-20"
         style={{ y: textY }}
       >
         <motion.p
-  className="text-sm mb-4 tracking-widest"
+  className="text-xs tracking-[0.3em] text-white/50 uppercase mb-16"
   style={{
     color: heroData.text.color,
     opacity: 0.9,
-    textShadow: "0 2px 10px rgba(0,0,0,0.6)",
+    textShadow: "0 2px 10px rgba(106, 106, 106, 0.6)",
   }}
 >
   {heroData.label}
 </motion.p>
 
+
         <motion.h1
-  className="text-5xl md:text-7xl lg:text-[6.5rem] font-semibold max-w-4xl"
+  className="text-6xl md:text-8xl font-serif leading-[0.95] tracking-tight"
   style={{
     color: heroData.text.color,
     textShadow: "0 4px 20px rgba(0,0,0,0.8)", // 🔥 makes text pop
@@ -132,7 +135,7 @@ const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
 const MarqueeStrip = () => {
   return (
-    <div className="py-6 bg-[#0b1a3a] text-white overflow-hidden">
+    <div className="py-6 bg-[#141B3A] text-white overflow-hidden">
       <motion.div
         className="flex gap-12 whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
@@ -158,14 +161,14 @@ const MarqueeStrip = () => {
 /* ================= MATERIALS ================= */
 
 const MaterialsSection = () => {
-  const [active, setActive] = useState("Texture");
+  const [active, setActive] = useState("Wood");
   const [hovered, setHovered] = useState<number | null>(null);
 
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const filtered =
-    active === "Texture"
+    active === "Wood"
       ? materials
       : materials.filter((m) => m.category === active);
 
@@ -267,13 +270,19 @@ const MaterialsSection = () => {
           Over 200 colours, wood grains, stone finishes, and metallic effects available.
         </p>
 
-        <motion.button
-          className="bg-black text-white px-6 py-3 rounded-full flex items-center gap-2"
-          whileHover={{ scale: 1.05, x: 4 }}
-          whileTap={{ scale: 0.97 }}
-        >
-          Explore Color Studio <ArrowRight className="w-4 h-4" />
-        </motion.button>
+          <button className="group mt-10 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#E5E5E5] text-[#1A1A1A] overflow-hidden relative transition-all duration-300">
+            
+            <span className="relative z-10 group-hover:text-white transition">
+              Explore Color Studio
+            </span>
+
+            <span className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-white">
+              →
+            </span>
+
+            {/* hover bg */}
+            <span className="absolute inset-0 bg-[#1A1A1A] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 rounded-full" />
+          </button>
       </motion.div>
     </section>
   );
