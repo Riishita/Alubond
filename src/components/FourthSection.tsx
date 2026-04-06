@@ -6,28 +6,35 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* ================= 3D MODEL ================= */
-function PanelModel() {
+function PanelModel({ activeLayer }: { activeLayer: number }) {
+  const layers = [
+    { y: 0.9, base: "#2E5BFF", active: "#081f6e" },
+    { y: 0.45, base: "#BFC5CC", active: "#aeaca5" },
+    { y: 0, base: "#E8EAED", active: "#cb650b" },
+    { y: -0.45, base: "#778899", active: "#AAB4BF" },
+    { y: -0.9, base: "#BFC5CC", active: "#707070" },
+  ];
+
   return (
     <group scale={0.8}>
-      <mesh position={[0, 0.6, 0]}>
-        <boxGeometry args={[2.5, 0.08, 2.5]} />
-        <meshStandardMaterial color="#1E3A6D" />
-      </mesh>
+      {layers.map((layer, i) => {
+        const isActive = i === activeLayer;
 
-      <mesh position={[0, 0.2, 0]}>
-        <boxGeometry args={[2.5, 0.08, 2.5]} />
-        <meshStandardMaterial color="#BFC5CC" metalness={0.7} roughness={0.3} />
-      </mesh>
-
-      <mesh position={[0, -0.2, 0]}>
-        <boxGeometry args={[2.5, 0.08, 2.5]} />
-        <meshStandardMaterial color="#E8EAED" />
-      </mesh>
-
-      <mesh position={[0, -0.6, 0]}>
-        <boxGeometry args={[2.5, 0.08, 2.5]} />
-        <meshStandardMaterial color="#C6A15B" metalness={0.8} roughness={0.3} />
-      </mesh>
+        return (
+          <mesh key={i} position={[0, layer.y, 0]}>
+            <boxGeometry args={[2.5, 0.1, 2.5]} />
+            <meshStandardMaterial
+              color={isActive ? layer.active : layer.base}
+              transparent
+              opacity={isActive ? 1 : 0.65}   // 👈 transparent inactive
+              emissive={isActive ? layer.active : "#000"}
+              emissiveIntensity={isActive ? 0.5 : 0}
+              metalness={0.5}
+              roughness={0.3}
+            />
+          </mesh>
+        );
+      })}
     </group>
   );
 }
@@ -70,7 +77,6 @@ const steps = [
     right: "Base Treatment",
   },
 ];
-
 
 /* ================= COMPONENT ================= */
 export default function HeroSection() {
@@ -135,19 +141,26 @@ export default function HeroSection() {
         <Canvas camera={{ position: [3, 3, 5], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1.2} />
+
           <group rotation={[0.3, 0.5, 0]}>
-            <PanelModel />
+            <PanelModel activeLayer={index} />
           </group>
+
           <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
         </Canvas>
       </div>
 
-      {/* LEFT TEXT */}
+      {/* LEFT TEXT (unchanged UI + clickable) */}
       <div className="absolute top-24 left-16 max-w-md z-10">
         <AnimatePresence mode="wait">
           {!showNext && (
             <motion.div
               key={index}
+              onClick={() => {
+                setIndex((prev) => (prev + 1) % steps.length);
+                setShowNext(false);
+              }}
+              className="cursor-pointer"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -80 }}
@@ -173,16 +186,27 @@ export default function HeroSection() {
         </AnimatePresence>
       </div>
 
-      {/* RIGHT LIST */}
+      {/* RIGHT LIST → NOW CLICKABLE */}
       {!showNext && (
         <div className="absolute bottom-24 right-16 text-right space-y-4 z-10">
-          {steps.slice(0, index + 1).map((item, i) => (
-            <div key={item.id}>
-              <p className="text-sm">
+          {steps.map((item, i) => (
+            <div
+              key={item.id}
+              onClick={() => {
+                setIndex(i);
+                setShowNext(false);
+              }}
+              className="cursor-pointer"
+            >
+              <p
+                className={`text-sm ${
+                  i === index ? "text-orange-400" : "text-white"
+                }`}
+              >
                 {item.id}. {item.right}
               </p>
 
-              {i !== index && (
+              {i !== steps.length - 1 && (
                 <div className="h-[1px] bg-white/20 my-2 w-40 ml-auto"></div>
               )}
             </div>
@@ -190,55 +214,61 @@ export default function HeroSection() {
         </div>
       )}
 
-      {/* 🔥 NEXT SECTION */}
-      <AnimatePresence>
-        {showNext && (
-          <motion.div
-            initial={{ opacity: 0, y: 80 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
-          >
-            {/* STATS */}
-            <div className="flex gap-16 mb-10">
-              <div>
-                <h2 className="text-orange-400 text-5xl font-bold">100+</h2>
-                <p className="text-white/50 text-xs">COUNTRIES</p>
-              </div>
-              <div>
-                <h2 className="text-orange-400 text-5xl font-bold">50,000+</h2>
-                <p className="text-white/50 text-xs">PROJECTS</p>
-              </div>
-              <div>
-                <h2 className="text-orange-400 text-5xl font-bold">35+</h2>
-                <p className="text-white/50 text-xs">LEADERSHIP</p>
-              </div>
-            </div>
+      {/* NEXT SECTION */}
+ <AnimatePresence>
+  {showNext && (
+    <motion.div
+      initial={{ opacity: 0, y: 80 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
+    >
+      {/* 🔥 STATS */}
+      <div className="flex items-center justify-center gap-16 mb-16">
+        
+        {/* ITEM 1 */}
+        <div className="text-center">
+          <h2 className="text-orange-400 text-5xl font-bold">100+</h2>
+          <p className="text-white/50 text-xs tracking-widest mt-2">
+            COUNTRIES
+          </p>
+        </div>
 
-            {/* HEADING */}
-            <h2 className="text-5xl font-semibold mb-4">
-              Engineered Without <br /> Compromise
-            </h2>
+        {/* DIVIDER */}
+        <div className="w-[1px] h-12 bg-white/20"></div>
 
-            <p className="text-white/60 mb-10">
-              Every panel. Every layer. Trusted worldwide.
-            </p>
+        {/* ITEM 2 */}
+        <div className="text-center">
+          <h2 className="text-orange-400 text-5xl font-bold">50,000+</h2>
+          <p className="text-white/50 text-xs tracking-widest mt-2">
+            PROJECTS WORLDWIDE
+          </p>
+        </div>
 
-            {/* CARDS */}
-            <div className="flex gap-6">
-              <div className="bg-[#EDEAE4] text-black p-6 w-[260px]">
-                Smaller than a plant cell
-              </div>
-              <div className="bg-[#EDEAE4] text-black p-6 w-[260px]">
-                Effortlessly integrative
-              </div>
-              <div className="bg-[#EDEAE4] text-black p-6 w-[260px]">
-                Zero manufacturing emissions
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* DIVIDER */}
+        <div className="w-[1px] h-12 bg-white/20"></div>
+
+        {/* ITEM 3 */}
+        <div className="text-center">
+          <h2 className="text-orange-400 text-5xl font-bold">35+</h2>
+          <p className="text-white/50 text-xs tracking-widest mt-2">
+            INDUSTRY LEADERSHIP
+          </p>
+        </div>
+      </div>
+
+      {/* 🔥 HEADING */}
+      <h2 className="text-6xl font-bold mb-6 leading-tight">
+        Engineered Without <br /> Compromise
+      </h2>
+
+      {/* 🔥 SUBTEXT */}
+      <p className="text-white/50 max-w-xl">
+        Every panel. Every layer. Tested, certified, and trusted on six continents.
+      </p>
+    </motion.div>
+  )}
+</AnimatePresence>
     </section>
   );
 }

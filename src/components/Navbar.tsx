@@ -26,9 +26,9 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img
-  src="/Logo.png"
+  src="/Logo1.png"
   alt="Alubond U.S.A"
-  className="h-10 md:h-12 object-contain brightness-110 contrast-110"
+  className="h-20 md:h-22 object-contain brightness-110 contrast-110"
 />
         </div>
 
