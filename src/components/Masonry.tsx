@@ -162,7 +162,15 @@ useLayoutEffect(() => {
 }, [grid, imagesReady]);
 
   return (
-    <div ref={containerRef} className="list">
+    <div
+  ref={containerRef}
+  className="list"
+  style={{
+    height: grid.length
+      ? Math.max(...grid.map((item) => item.y + item.h)) + 50
+      : 0,
+  }}
+>
       {grid.map((item) => (
         <div
           key={item.id}

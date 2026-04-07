@@ -9,8 +9,12 @@ const items = [
   { id: "4", img: "/Gallary/4.jpg", url: "#", height: 700 },
   { id: "5", img: "/Gallary/5.jpg", url: "#", height: 550 },
   { id: "6", img: "/Gallary/6.jpg", url: "#", height: 650 },
- 
-
+  { id: "7", img: "/Gallary/7.jpg", url: "#", height: 500 },
+  { id: "8", img: "/Gallary/8.jpg", url: "#", height: 600 },
+  { id: "9", img: "/Gallary/9.webp", url: "#", height: 450 },
+  { id: "10", img: "/Gallary/10.webp", url: "#", height: 700 },
+  { id: "11", img: "/Gallary/11.jpg", url: "#", height: 550 },
+  { id: "12", img: "/Gallary/12.webp", url: "#", height: 650 },
 ];
 
 export default function GallerySection() {
@@ -34,7 +38,7 @@ export default function GallerySection() {
       </div>
 
       {/* GRID */}
-      <div className="relative w-full min-h-screen">
+      <div className="relative w-full ">
         <Masonry items={items} />
       </div>
 

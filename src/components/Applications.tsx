@@ -1,5 +1,6 @@
 import ChromaGrid from "@/components/ChromaGrid";
 
+
 const items = [
   {
     image: "/images/BUILDINGFACADES.png",
@@ -48,13 +49,8 @@ const items = [
 
 export default function Section() {
   return (
-    <section
-      style={{
-        background:
-          "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 45%, #141B3A 100%)",
-        padding: "100px 40px",
-      }}
-    >
+    <section className="gradient-amaterasu min-h-screen px-10 py-24">
+
       {/* TOP HEADER */}
       <div
         style={{

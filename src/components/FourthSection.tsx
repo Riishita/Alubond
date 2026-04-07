@@ -129,13 +129,8 @@ export default function HeroSection() {
 
   return (
     <section
-      ref={sectionRef}
-      className="w-full h-screen relative overflow-hidden text-white"
-      style={{
-        background:
-          "radial-gradient(circle at center, #3B4D8F 0%, #1E2A5A 45%, #141B3A 100%)",
-      }}
-    >
+  className="w-full h-screen relative overflow-hidden text-white gradient-amaterasu px-10 py-24"
+>
       {/* 🔵 3D */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [3, 3, 5], fov: 45 }}>

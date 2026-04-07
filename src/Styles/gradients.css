@@ -1,0 +1,74 @@
+/* 🌊 AMATERASU EXACT STYLE GRADIENT */
+
+.gradient-amaterasu {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    /* RIGHT LIGHT GLOW */
+    radial-gradient(
+      circle at 75% 40%,
+      rgba(120, 255, 255, 0.35),
+      rgba(0, 180, 220, 0.2) 30%,
+      transparent 55%
+    ),
+
+    /* CENTER SOFT HAZE */
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(0, 200, 255, 0.15),
+      transparent 60%
+    ),
+
+    /* MAIN BASE GRADIENT */
+    linear-gradient(
+      110deg,
+      #1a5c80 0%,
+      #16115c 30%,
+      #1f6f7f 55%,
+      #55bbbb 100%
+    );
+
+  background-blend-mode: screen, screen, normal;
+}
+
+.gradient-amaterasu {
+  background-size: 140% 140%;
+  animation: auroraMove 18s ease-in-out infinite;
+}
+
+@keyframes auroraMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 60%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.gradient-amaterasu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.08),
+    transparent 80%
+  );
+
+  animation: lightSweep 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes lightSweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}

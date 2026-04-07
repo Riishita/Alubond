@@ -106,9 +106,7 @@ const LandingHero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Tested for
-            <br />
-            Safety.
+            WORLD’S LARGEST 
           </motion.h1>
 
           <motion.h2
@@ -117,9 +115,9 @@ const LandingHero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Crafted for
+            ACP 
             <br />
-            Legacy.
+            BRAND
           </motion.h2>
 
           <motion.p
