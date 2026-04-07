@@ -73,7 +73,7 @@ const Navbar = () => {
               className="fixed right-0 top-0 z-40 flex h-full w-full items-center justify-center sm:w-1/2"
               style={{
                 background:
-                  "linear-gradient(135deg, #141B3A 0%, #1E2A5A 100%)",
+                  "linear-gradient(135deg, #1f2b5e 0%, #3db3d7 100%)",
               }}
               initial={{ x: "100%" }}
               animate={{ x: 0 }}

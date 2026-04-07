@@ -135,7 +135,7 @@ const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
 const MarqueeStrip = () => {
   return (
-    <div className="py-6 bg-[#141B3A] text-white overflow-hidden">
+    <div className="py-6 bg-[#1a5c80] text-white overflow-hidden">
       <motion.div
         className="flex gap-12 whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}

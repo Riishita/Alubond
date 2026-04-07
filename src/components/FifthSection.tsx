@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import MarbleResilienceVideo from "@/components/MarbleResilienceVideo";
 
 const certs = [
   { title: "EN 13501", desc: "European Fire Classification", tag: "CLASS A2-S1,D0" },
@@ -43,8 +44,9 @@ export default function FireHorizontalExperience() {
       <div className="max-w-7xl mx-auto px-10 relative z-10">
 
         {/* HEADER */}
-        <div className="mb-20 max-w-3xl">
-         
+        <div className="mb-20 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)]">
+          <div className="max-w-3xl">
+
           <p className="text-xs tracking-[0.3em] text-black/40 uppercase mb-16">
           002 / FIRE & SAFETY
         </p>
@@ -78,6 +80,12 @@ export default function FireHorizontalExperience() {
             {/* hover bg */}
             <span className="absolute inset-0 bg-[#1A1A1A] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 rounded-full" />
           </button>
+          </div>
+
+          {/* Right: marble resilience video (visual only) */}
+          <div className="mx-auto w-full max-w-md mt-14  lg:mx-0 lg:max-w-none">
+            <MarbleResilienceVideo />
+          </div>
         </div>
 
         {/* EDGE FADE (LEFT + RIGHT)

@@ -111,7 +111,7 @@ const LandingHero = () => {
 
           <motion.h2
             className="mb-8 text-5xl font-medium leading-tight md:text-7xl lg:text-8xl"
-            style={{ color: "#7DA2FF" }} // 🔥 improved blue accent
+            style={{ color: "#59c4ee " }} // 🔥 improved blue accent
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
           >
