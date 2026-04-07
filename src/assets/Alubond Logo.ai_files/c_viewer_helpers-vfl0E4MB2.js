@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="14148e2f-f0a5-3950-951b-daa1e53aceca")}catch(e){}}();
-define(["exports","./e_file_viewer_static_scl_page_folder","./c_common_exception_tag_registry"],(function(e,t,r){"use strict";function n(e,r,n){return function(e,r,n){return n===t.ROLE_WORK?r.team_name:r.is_paired?function(e){return e.formatMessage({id:"QPBzI3",defaultMessage:"Personal"})}(e):""}(e,r,n.role)}e.deprecatedGetRoleTitle=function(e,t,r){return n(e,t,r)},e.deprecatedGetRootName=function(e,t,r){return function(e,t,r){return n(e,t,r)||function(e){return e.formatMessage({id:"rIir19",defaultMessage:"Dropbox"})}(e)}(e,t,r)}}));
-//# sourceMappingURL=c_viewer_helpers.js-vflgh4cxC.map
-
-//# debugId=14148e2f-f0a5-3950-951b-daa1e53aceca

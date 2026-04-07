@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="ba5a7853-766b-3981-a038-e3d3320226ef")}catch(e){}}();
-define(["exports"],(function(t){"use strict";t.RafThrottle=class{constructor(t){this.request=()=>{this.ticking||(this.ticking=!0,this.currentRequestId=requestAnimationFrame((()=>{this.thunk(),this.ticking=!1})))},this.cancelPending=()=>{this.currentRequestId&&cancelAnimationFrame(this.currentRequestId)},this.thunk=t}},t.makeCancelable=function(t){let e=!1;const n=new Promise(((n,i)=>{t.then((t=>e?i({isCanceled:!0}):n(t)),(t=>i(e?{isCanceled:!0}:t)))}));return n.cancel=()=>{e=!0},n}}));
-//# sourceMappingURL=c_raf_throttle.js-vflw8l6Th.map
-
-//# debugId=ba5a7853-766b-3981-a038-e3d3320226ef

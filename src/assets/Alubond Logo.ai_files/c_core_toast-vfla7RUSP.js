@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="557cfb10-7169-33e8-9c97-2f74e6b1442a")}catch(e){}}();
-define(["exports","./c_init_data_edison","./c_security_csrf_hmac","./c_core_toast_toast_on_init"],(function(t,n,o,e){"use strict";const s=1;async function c(t,n,e){const c=function(t){switch(t){case"error":return"er:";case"ok":return"ok:"}}(n)+t,a=encodeURIComponent(c),i=await async function(t,n){const e=await o.hmacMessage(o.stringToBytes(t),o.stringToBytes(n)),s=o.bytesToString(e),c=btoa(s);return encodeURIComponent(c)}(null!=e?e:"",a);return s+":"+a+":"+i}t.toastOnNextPageLoad=async function(t,o){const s=await c(t,o,n.mustReadCsrfToken());n.Cookies.create(e.toastCookieName(),s,1)}}));
-//# sourceMappingURL=c_core_toast.js-vfleMUCi2.map
-
-//# debugId=557cfb10-7169-33e8-9c97-2f74e6b1442a

@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="80ba33a2-f040-3779-a309-70d1035c924b")}catch(e){}}();
-define(["exports","./e_file_viewer_static_scl_page_folder","react","./e_edison","./c_pap-events_enums_current_plan-utils","./c_common_exception_tag_registry","./e_core_exception","./c_init_data_edison","./c_src_sink_index","./c_lodash-es_lodash","./c_api_v2_routes_restorations_provider","./c_api_v2_routes_shortcuts_provider","./e_data_modules_stormcrow","./c_api_v2_routes_team_insights_provider","./c_domains","./c_core_i18n","metaserver/static/js/langpack","./c_core_notify","react-dom","react/jsx-runtime","./c_security_csrf_hmac","./c_react-use_useEffectOnce"],(function(_,e,c,t,o,r,s,i,n,a,d,p,u,m,l,v,f,I,g,x,h,y){"use strict";_.IconContext=e.IconContext,_.PictogramIcon=e.PictogramIcon,_.UIIcon=e.UIIcon}));
-//# sourceMappingURL=c_dig-icons_index.js-vflCdblmk.map
-
-//# debugId=80ba33a2-f040-3779-a309-70d1035c924b

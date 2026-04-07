@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="032bd0c1-d89f-3bcc-83a0-46a33f52ba38")}catch(e){}}();
-define(["exports","./c_unity_features"],(function(t,e){"use strict";class a{static is_cached_and_locally_available(t,a){const c=this._cache[e.UnityFeatures.server_path(t,a)];return null!=c&&c.is_locally_available}static get(t,a){return this._cache[e.UnityFeatures.server_path(t,a)]}static set(t,e){this._cache[t]=e}static set_batch(t){Object.assign(this._cache,t)}static clear(){this._cache={}}}a._cache={};let c=a;e.UnityFeatures.isUnitySupported()||(c=void 0);var s=c;t.UnityCheckFileCache=s}));
-//# sourceMappingURL=c_unity_check_file_cache.js-vfl2RrfVR.map
-
-//# debugId=032bd0c1-d89f-3bcc-83a0-46a33f52ba38

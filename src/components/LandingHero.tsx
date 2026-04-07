@@ -62,7 +62,7 @@ const LandingHero = () => {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             poster="/hero-facade-poster.jpg"
           >
             <source src="/hero-facade-premium.mp4" type="video/mp4" />

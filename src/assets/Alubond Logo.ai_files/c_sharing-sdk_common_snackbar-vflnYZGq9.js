@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="c7184ecd-2ace-3a46-bf00-d06ac85f2586")}catch(e){}}();
-define(["exports","react","./e_file_viewer_static_scl_page_folder"],(function(e,t,a){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}var o=n(t);const i="sharing-notification",c=()=>a.Snackbar.close(i),l=e=>e.formatMessage({id:"b0sjjf",defaultMessage:"Learn more"});e.close=c,e.complete=(e,t)=>{c(),a.Snackbar.complete(e,i,t)},e.completeWithUndo=({title:e,onUndoClick:t})=>{c(),a.Snackbar.completeWithUndo(e,t,i,{timeoutDelayMs:2e4})},e.fail=e=>{a.Snackbar.close(),a.Snackbar.fail(e,i)},e.failWithHelpButton=({intl:e,title:t,onHelpButtonClick:n,helpButtonText:r})=>{const s=r||l(e);c(),a.Snackbar.show(o.default.createElement(a.Snackbar,{title:t,actionButtonText:s,onActionClick:n,variant:"fail",id:i}))},e.inProgress=e=>{c(),a.Snackbar.sync(e,!0,i)}}));
-//# sourceMappingURL=c_sharing-sdk_common_snackbar.js-vflf0BCZp.map
-
-//# debugId=c7184ecd-2ace-3a46-bf00-d06ac85f2586

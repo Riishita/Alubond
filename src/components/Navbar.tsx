@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import alubondLogo from "@/assets/alubond-logo.png";
 
 const navLinks = [
   { label: "About Us", href: "#about" },
@@ -71,7 +70,7 @@ const Navbar = () => {
 
             {/* 🔥 Gradient Side Menu */}
             <motion.div
-              className="fixed right-0 top-0 h-full w-1/2 z-40 flex items-center justify-center"
+              className="fixed right-0 top-0 z-40 flex h-full w-full items-center justify-center sm:w-1/2"
               style={{
                 background:
                   "linear-gradient(135deg, #141B3A 0%, #1E2A5A 100%)",

@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="f6f53817-f047-3fa3-8d07-9efb19c23241")}catch(e){}}();
-define(["exports","./e_file_viewer_static_scl_page_folder","./e_edison"],(function(e,t,n){"use strict";const s=t.createCustomRequestQuery({requestMethod:"prefetch_top_menu",queryFn:()=>async()=>{var e;const s=await async function(){return await n.Edison.fetch(t.WebPlatformEdisonFetch,"EdisonTopMenuFetch")}(),a=JSON.parse(s.jsonData);return{apiData:{...a,showAdminTasksMenu:null!==(e=a.shouldShowAdminTasksMenu)&&void 0!==e&&e},pkgData:null}}});e.prefetchTopMenuPackage=s}));
-//# sourceMappingURL=c_react_query_api_helpers_queries_top_menu.js-vflQTEdv1.map
-
-//# debugId=f6f53817-f047-3fa3-8d07-9efb19c23241

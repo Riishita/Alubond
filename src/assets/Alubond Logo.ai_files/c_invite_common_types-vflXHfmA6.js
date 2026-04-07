@@ -1,5 +1,0 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="c925c87c-63ac-3753-8c81-dd98c6e91208")}catch(e){}}();
-define(["exports"],(function(E){"use strict";var I,e,M,t;E.LoadingState=void 0,(I=E.LoadingState||(E.LoadingState={}))[I.LOADING=0]="LOADING",I[I.COMPLETED=1]="COMPLETED",I[I.ERROR=2]="ERROR",E.InviteModalMode=void 0,(e=E.InviteModalMode||(E.InviteModalMode={}))[e.INVITE=0]="INVITE",e[e.RTJ_APPROVAL=1]="RTJ_APPROVAL",e[e.MEMBER_INVITE=2]="MEMBER_INVITE",e[e.LEGACY=3]="LEGACY",E.InviteModalStep=void 0,(M=E.InviteModalStep||(E.InviteModalStep={}))[M.INVITE_STEP=0]="INVITE_STEP",M[M.ADD_LICENSES_STEP=1]="ADD_LICENSES_STEP",M[M.MANAGE_ACCESS_STEP=2]="MANAGE_ACCESS_STEP",M[M.SUMMARY_STEP=3]="SUMMARY_STEP",E.InviteModalType=void 0,(t=E.InviteModalType||(E.InviteModalType={})).LEGACY_INVITE_MODAL="legacy_invite_modal",t.MULTI_STEP_INVITE_MODAL="multi_step_invite_modal"}));
-//# sourceMappingURL=c_invite_common_types.js-vflvqVx_s.map
-
-//# debugId=c925c87c-63ac-3753-8c81-dd98c6e91208
