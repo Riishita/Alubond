@@ -23,10 +23,11 @@ export default function GlobeHero() {
 
   /* 🌍 GLOBE ANIMATION */
   const globeScale = useTransform(scrollYProgress, [0, 1], [2.2, 1]);
-  const globeY = useTransform(scrollYProgress, [0, 1], ["50%", "-10%"]);
-  const globeX = useTransform(scrollYProgress, [0, 1], ["-50%", "15%"]);
+  const globeY = useTransform(scrollYProgress, [0, 1], ["70%", "-10%"]);
+  const globeX = useTransform(scrollYProgress, [0, 1], ["-50%", "5%"]);
 
-  const textOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 1]);
+  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -850]);
 
   // ✅ FIXED
   const textScale = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
@@ -133,14 +134,18 @@ export default function GlobeHero() {
   );
 
   return (
-    <section ref={sectionRef} className="h-[250vh] relative bg-black">
+    <section ref={sectionRef} className="h-[180vh] relative bg-black">
       <div className="sticky top-0 h-screen overflow-hidden">
 
         <div className="gradient-amaterasu min-h-screen px-10 py-24" />
 
         {/* TEXT */}
         <motion.h1
-          style={{ opacity: textOpacity, scale: textScale }}
+  style={{ 
+    opacity: textOpacity, 
+    scale: textScale,
+    y: textY 
+  }}
           className="absolute top-[10%] w-full text-center text-white font-light tracking-[-2px] text-[clamp(60px,12vw,180px)]"
         >
           Global Impact

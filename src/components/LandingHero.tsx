@@ -1,5 +1,8 @@
+"use client";
+
 import { motion, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+
 import CursorGridTrail from "./CursorFollower";
 import Navbar from "./Navbar";
 
@@ -15,12 +18,24 @@ const LandingHero = () => {
   const reduceMotion = useReducedMotion();
   const heroSectionRef = useRef<HTMLDivElement>(null);
 
+  // 🎥 VIDEO CONTROL
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // 🔥 start video exactly when preloader finishes
+    const timer = setTimeout(() => {
+      videoRef.current?.play().catch(() => {});
+    }, 3000); // match preloader expand timing
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       ref={heroSectionRef}
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* ✅ NEW PREMIUM BLUE BACKGROUND */}
+      {/* 🌊 BACKGROUND */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -29,64 +44,47 @@ const LandingHero = () => {
             radial-gradient(circle at 30% 70%, rgba(80,140,220,0.35), transparent 50%),
             linear-gradient(135deg, #dbeafe 0%, #93c5fd 40%, #60a5fa 70%, #3b82f6 100%)
           `,
-          filter: "contrast(105%) brightness(102%)",
         }}
-      >
-        {/* ✨ Grain texture */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "url('https://www.transparenttextures.com/patterns/noise.png')",
-            opacity: 0.05,
-            pointerEvents: "none",
-          }}
-        />
-      </div>
+      />
 
-      <CursorGridTrail excludeTopPx={NAV_EXCLUDE_TOP_PX} sectionRef={heroSectionRef} />
+      <CursorGridTrail
+        excludeTopPx={NAV_EXCLUDE_TOP_PX}
+        sectionRef={heroSectionRef}
+      />
       <Navbar />
 
       {/* 🎥 VIDEO */}
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         <motion.div
           className="absolute inset-[-12%] h-[124%] w-[124%]"
-          initial={{ scale: 1 }}
-          animate={reduceMotion ? { scale: 1 } : { scale: [1, 1.05, 1] }}
-          transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
+          initial={{ scale: 1.2 }}
+          animate={
+            reduceMotion
+              ? { scale: 1 }
+              : { scale: [1.2, 1] }
+          }
+          transition={{
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <video
-            className="h-full w-full object-cover object-center brightness-[0.75] contrast-[1.05]"
-            autoPlay
-            loop
+            ref={videoRef}
+            className="h-full w-full object-cover object-center brightness-[0.9] contrast-[1.05]"
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/hero-facade-poster.jpg"
           >
             <source src="/hero-facade-premium.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* 🔵 UPDATED OVERLAY (matches blue tone) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/30 via-[#0f172a]/60 to-[#0f172a]/85" />
-
-        {/* SIDE DEPTH */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/50 via-transparent to-[#0f172a]/70" />
-
-        {/* SOFT BLUE GLOW */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_70%_40%,rgba(96,165,250,0.15),transparent_65%)]" />
+        {/* OVERLAYS */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/30 via-[#0f172a]/60 to-[#0f172a]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/50 via-transparent to-[#0f172a]/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_70%_40%,rgba(96,165,250,0.15),transparent_20%)]" />
       </div>
-
-      {/* 🔵 CENTER LIGHT */}
-      <div
-        className="absolute inset-0 z-[2]"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(120,140,220,0.12), transparent 65%)",
-        }}
-      />
 
       {/* CONTENT */}
       <div className="relative z-10 flex w-full items-center justify-between px-8 md:px-16 lg:px-24">
@@ -106,18 +104,16 @@ const LandingHero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            WORLD’S LARGEST 
+            WORLD’S LARGEST
           </motion.h1>
 
           <motion.h2
-            className="mb-8 text-5xl font-medium leading-tight md:text-7xl lg:text-8xl"
-            style={{ color: "#59c4ee " }} // 🔥 improved blue accent
+            className="mb-8 text-5xl font-medium md:text-7xl lg:text-8xl"
+            style={{ color: "#59c4ee" }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            ACP 
-            <br />
-            BRAND
+            ACP <br /> BRAND
           </motion.h2>
 
           <motion.p
@@ -129,12 +125,9 @@ const LandingHero = () => {
             designed for the extraordinary.
           </motion.p>
 
-          <motion.div>
-            <button className="group flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-8 py-4 text-xs tracking-[0.3em] text-white uppercase backdrop-blur-md transition hover:bg-white/20">
-              Discover Innovation
-              <span>↓</span>
-            </button>
-          </motion.div>
+          <button className="group flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-8 py-4 text-xs tracking-[0.3em] text-white uppercase backdrop-blur-md hover:bg-white/20">
+            Discover Innovation ↓
+          </button>
         </div>
 
         {/* RIGHT */}
@@ -149,7 +142,6 @@ const LandingHero = () => {
               </p>
             </div>
           ))}
-          <div className="h-20 w-[1px] bg-white/20" />
         </div>
       </div>
 

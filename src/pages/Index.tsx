@@ -1,5 +1,6 @@
+
 import { Component, lazy, Suspense, type ReactNode, useCallback, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Preloader from "@/components/Preloader";
 import LandingHero from "@/components/LandingHero";
 const GlobeSection = lazy(() => import("@/components/GlobeSection"));
@@ -10,6 +11,7 @@ import SixthSection from "@/components/SixthSection";
 import Applications from "@/components/Applications";
 import Gallary from "@/components/Gallary";
 import Footer from "@/components/Footer";
+
 
 const FALLBACK_LOCATIONS = {
   Manufacturing: ["UAE", "India", "Europe"],
@@ -132,6 +134,7 @@ class GlobeSectionBoundary extends Component<
   }
 }
 
+
 const Index = () => {
   const [loading, setLoading] = useState(true);
 
@@ -146,12 +149,15 @@ const Index = () => {
       ) : (
         <>
           <LandingHero />
+          
           <GlobeSectionBoundary>
             <Suspense fallback={<GlobeSectionFallback />}>
               <GlobeSection />
               {/* Fire & certifications: placed here so it appears right after the globe scroll, not below Philosophy */}
               
-              <ThirdSection />
+             
+  <ThirdSection />
+
               <FourthSection />
               <FifthSection />
               <SixthSection />
