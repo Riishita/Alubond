@@ -9,7 +9,7 @@ type MarbleResilienceVideoProps = {
 export default function MarbleResilienceVideo({
   className,
   // Use CDN video by default to avoid increasing repo/build size.
-  srcMp4 = "/videos/marble-resilience.mp4",
+  srcMp4 = "https://res.cloudinary.com/drgg4st9a/video/upload/v1775642751/marble-resilience_hozkf6.mp4",
   poster = "/materials/swatch-marble.jpg",
 }: MarbleResilienceVideoProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);

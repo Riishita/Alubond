@@ -83,7 +83,7 @@ export default function ScrollVideoSection() {
         {/* VIDEO */}
         <video
           ref={videoRef}
-          src="/videos/Scroll-Controll.mp4"
+          src="https://res.cloudinary.com/drgg4st9a/video/upload/v1775642742/Scroll-Controll_j55tct.mp4"
           className="absolute inset-0 w-full h-full object-cover z-0"
           muted
           playsInline
