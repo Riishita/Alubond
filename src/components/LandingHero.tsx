@@ -76,7 +76,7 @@ const LandingHero = () => {
             preload="auto"
             poster="/hero-facade-poster.jpg"
           >
-            <source src="/hero-facade-premium.mp4" type="video/mp4" />
+            <source src="https://cdn.pixabay.com/video/2024/07/04/219337_large.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
